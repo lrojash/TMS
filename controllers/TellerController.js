@@ -3,9 +3,9 @@ const { Tellers } = require('../models')
 const { Op, literal, fn, col } = require('sequelize')
 
 const LoginTeller = async (req, res) => {
-    console.log('inside login controller', req.body.user_id)
+    console.log('inside login controller', req.body)
     try {
-        let userId = req.body.user_id
+        let userId = req.body.userId
         let password = req.body.password
 
         let teller = await Tellers.findOne({
