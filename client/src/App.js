@@ -5,6 +5,7 @@ import './styles/Main.css'
 function App() {
     return (
         <div>
+           
             <LandingPage />
         </div>
     )

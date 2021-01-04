@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import TextInput from '../components/TextInput'
-import NavBar from '../components/NavBar'
 import { __LoginTeller } from '../services/TellerServices'
 
 const LandingPage = (props) => {
@@ -27,7 +26,6 @@ const LandingPage = (props) => {
 
     return (
         <div className="sign-in-form">
-            <NavBar />
             <h1 className="main-title">Teller Management System</h1>
             <form className="form-sign-in" onSubmit={handleSubmit}>
                 <TextInput
@@ -40,7 +38,7 @@ const LandingPage = (props) => {
                 <TextInput
                     placeholder="PASSWORD"
                     name="password"
-                    type="password"
+                    type="pasword"
                     value={password}
                     onChange={(e) => handleChange(e, setPassword)}
                 />
