@@ -10,9 +10,10 @@ module.exports = {
       },
       userId: {
         type: Sequelize.STRING,
-        field: 'user_id'
+        field: 'user_id',
+        unique:  true
       },
-      password: {
+      password_digest: {
         type: Sequelize.STRING
       },
       question_one: {
@@ -22,17 +23,20 @@ module.exports = {
         type: Sequelize.STRING
       },
       admin: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
+        required: true
       },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        field: 'created_at'
+        field: 'created_at',
+        defaultValue: new Date()
       },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        field: 'updated_at'
+        field: 'updated_at',
+        defaultValue: new Date()
       }
     });
   },

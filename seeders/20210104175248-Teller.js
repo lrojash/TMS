@@ -5,16 +5,13 @@ module.exports = {
     return queryInterface.bulkInsert('tellers', [
       {
         user_id: 'u2223',
-        password: 'password1',
+        password_digest: 'password1',
         admin: true,
-        created_at: new Date(),
-        updated_at: new Date()
+
       }, {
         user_id: 'u3332',
-        password: '123',
+        password_digest: '123',
         admin: false,
-        created_at: new Date(),
-        updated_at: new Date()
       }
     ],
       {}

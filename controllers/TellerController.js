@@ -14,15 +14,41 @@ const LoginTeller = async (req, res) => {
             },
             returning: true
         })
-        if(teller !== null && teller.password === password){
+        if(teller !== null && teller.password_digest === password){
             res.send(teller)
         }
+
+
 
     } catch (error) {
         throw error
     }
 }
 
+const CreateTeller = async(req, res) => {
+    try{
+        const userExists = await Tellers.findOne({
+            where: {
+                user_id: req.body.userId,
+            }
+        })
+
+        if (userExists){
+            res.send({
+                message: 'account already exists'
+            })
+        }
+
+        let teller = await Tellers.create(req.body)
+
+        res.send(teller)
+
+    } catch(error) {
+        throw error 
+    }
+}
+
 module.exports = {
-    LoginTeller
+    LoginTeller,
+    CreateTeller
 }

@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   };
   Tellers.init({
     userId: DataTypes.STRING,
-    password: DataTypes.STRING,
+    password_digest: DataTypes.STRING,
     question_one: DataTypes.STRING,
     question_two: DataTypes.STRING,
     admin: DataTypes.BOOLEAN
