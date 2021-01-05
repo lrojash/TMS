@@ -1,12 +1,11 @@
 import React from 'react'
-import LandingPage from './Pages/LandingPage'
+import Router from './components/Router'
 import './styles/Main.css'
 
 function App() {
     return (
         <div>
-           
-            <LandingPage />
+            <Router />
         </div>
     )
 }

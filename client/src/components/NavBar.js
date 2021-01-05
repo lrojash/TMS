@@ -1,34 +1,23 @@
-// import React from 'react';
-// import { makeStyles } from '@material-ui/core/styles';
-// import Paper from '@material-ui/core/Paper';
-// import Tabs from '@material-ui/core/Tabs';
-// import Tab from '@material-ui/core/Tab';
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
+import Tab from '@material-ui/core/Tab';
+import '../styles/Nav.css'
 
-// const useStyles = makeStyles({
-//     root: {
-//         flexGrow: 1,
-//     },
-// });
 
-// export default function CenteredTabs() {
-//     const classes = useStyles();
-//     const [value, setValue] = React.useState(0);
+const NavBar = (props) => {
+    let admin = props.tellerInfo.admin
+    return admin ? (
+        <div className="nav-bar">
+            <Tab label="New Teller" className="link"/>
+            <Tab label="Sign Out" className="link"/>
+        </div>
+    ) : (
+            <div className="nav-bar">
+                <Tab label="Close Day" className="link"/>
+                <Tab label="Drawer" className="link"/>
+                <Tab label="Sign Out" className="link"/>
+            </div>
+        )
+}
 
-//     const handleChange = (event, newValue) => {
-//         setValue(newValue);
-//     };
-
-//     return (
-//         <Paper className={classes.root}>
-//             <Tabs
-//                 value={value}
-//                 onChange={handleChange}
-//                 indicatorColor="primary"
-//                 textColor="primary"
-//                 centered
-//             >
-//                 <Tab label="Admin" />
-//             </Tabs>
-//         </Paper>
-//     );
-// }
+export default NavBar

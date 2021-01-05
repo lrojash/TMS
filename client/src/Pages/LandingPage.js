@@ -17,7 +17,11 @@ const LandingPage = (props) => {
         try {
             const login = await __LoginTeller({ userId, password })
             if(login) {
-                console.log('login successfull')
+
+                console.log('login successfull', login)
+                props.setTellerInfo(login)
+                props.setAuth(true)
+                props.history.push('/main')
             }
         } catch (error) {
             throw error

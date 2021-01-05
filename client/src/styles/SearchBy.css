@@ -1,0 +1,29 @@
+.SearchBy-page{
+    display: grid;
+    grid-template-columns: 50% auto;
+    grid-template-rows: 25vh 50vh;
+    align-items: center;
+    
+}
+.search-title{
+    grid-column-start:1;
+    grid-column-end: 3;
+    align-self: end;
+    margin-left: .5em;
+}
+
+.search-form{
+    justify-self: center;
+    display:grid;
+    flex-direction: column;
+}
+.search-form-two{
+    display:flex;
+    flex-direction: column;
+    justify-self: center;
+    
+}
+.search-button{
+    margin-top: 2em;
+    height: 3em;
+}
