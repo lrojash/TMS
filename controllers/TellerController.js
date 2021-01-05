@@ -35,7 +35,7 @@ const CreateTeller = async(req, res) => {
 
         if (userExists){
             res.send({
-                message: 'account already exists'
+                message: 'account already exists',
             })
         }
 

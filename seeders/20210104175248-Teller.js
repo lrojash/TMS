@@ -12,6 +12,7 @@ module.exports = {
         user_id: 'u3332',
         password_digest: '123',
         admin: false,
+        drawer: 20000.00
       }
     ],
       {}

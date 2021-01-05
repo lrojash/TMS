@@ -1,38 +1,34 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('tellers', {
+    await queryInterface.createTable('transactions', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      userId: {
-        type: Sequelize.STRING,
-        field: 'user_id',
-        unique:  true
+      accountNumber: {
+        type: Sequelize.INTEGER,
+        field: 'account_number',
+        references: {
+          model: 'checkings',
+          key: 'account_number'
+        },
+        references: {
+          model: 'customers',
+          key: 'id'
+        }
       },
-      password_digest: {
+      location: {
         type: Sequelize.STRING
       },
-      question_one: {
-        type: Sequelize.STRING
-      },
-      question_two: {
-        type: Sequelize.STRING
-      },
-      admin: {
-        type: Sequelize.BOOLEAN,
-        required: true
-      },
-      drawer: {
+      amount: {
         type: Sequelize.DECIMAL(10, 2),
-        defaultValue: 0.00,
+        defaultValue: 0.00
       },
-      balance: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: true
+      interaction: {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
@@ -49,6 +45,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('tellers');
+    await queryInterface.dropTable('transactions');
   }
 };

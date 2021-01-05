@@ -22,11 +22,14 @@ const NewTeller = (props) => {
         e.preventDefault()
         try{
             const response = await __CreateTeller({userId, password, admin})
-            console.log('account created', response)
+            if(response.message) {
+                alert('User Id already exists. \nPlease Try again')
+            }
+            alert('User Created Successfully')
         } catch(error) {
             throw error 
         }
-
+        props.history.push('/main')
     }
 
     return (

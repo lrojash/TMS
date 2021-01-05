@@ -1,38 +1,24 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('tellers', {
+    await queryInterface.createTable('customers', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      userId: {
+      firstName: {
         type: Sequelize.STRING,
-        field: 'user_id',
-        unique:  true
+        field: 'first_name'
       },
-      password_digest: {
-        type: Sequelize.STRING
+      lastName: {
+        type: Sequelize.STRING,
+        field: 'last_name'
       },
-      question_one: {
-        type: Sequelize.STRING
-      },
-      question_two: {
-        type: Sequelize.STRING
-      },
-      admin: {
-        type: Sequelize.BOOLEAN,
-        required: true
-      },
-      drawer: {
-        type: Sequelize.DECIMAL(10, 2),
-        defaultValue: 0.00,
-      },
-      balance: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: true
+      dateOfBirth: {
+        type: Sequelize.STRING,
+        field: 'date_of_birth'
       },
       createdAt: {
         allowNull: false,
@@ -49,6 +35,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('tellers');
+    await queryInterface.dropTable('customers');
   }
 };
