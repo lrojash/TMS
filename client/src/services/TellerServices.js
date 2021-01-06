@@ -2,8 +2,8 @@ import ApiClient from './ApiClient'
 
 export const __LoginTeller = async (userData) => {
     try{
+        console.log('inside teller services', userData)
         const res = await ApiClient.post('/teller/login', userData)
-        console.log(res)
         return res.data
     } catch(error) {
         throw error 
@@ -19,3 +19,4 @@ export const __CreateTeller = async (userData) => {
         throw error 
     }
 }
+

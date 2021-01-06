@@ -1,6 +1,10 @@
 const { Customer } = require('../models')
 
+const { Op, literal, fn, col } = require('sequelize')
+
+
 const GetCustomer = async (req, res) => {
+    
     console.log('inside controller', req.body)
     try{
         let customerId = req.body.customerId
