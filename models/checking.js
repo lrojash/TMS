@@ -15,12 +15,11 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
       })
-      // Checking.hasMany(models.Transactions, {
-      //   foreignKey: 'account_number',
-      //   as: 'transaction',
-      //   onDelete: 'CASCADE',
-      //   onUpdate: 'CASCADE'
-      // })
+      Checking.hasMany(models.Transactions, {
+        foreignKey: 'account_number',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
+      })
     }
   };
   Checking.init({
@@ -32,8 +31,8 @@ module.exports = (sequelize, DataTypes) => {
         key: 'id'
       }
     },
-    accountType: DataTypes.DECIMAL(10,2),
-    balance: DataTypes.INTEGER,
+    accountType: DataTypes.INTEGER,
+    balance: DataTypes.DECIMAL(10,2),
     accountNumber: DataTypes.INTEGER,
   }, {
     sequelize,

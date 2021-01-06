@@ -15,6 +15,12 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
       })
+      Saving.hasMany(models.Transactions, {
+        foreignKey: 'account_number',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
+      })
+
     }
   };
   Saving.init({
@@ -26,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
         key: 'id'
       }
     },
-    balance: DataTypes.DECIMAL(10,2),
+    balance: DataTypes.DECIMAL(10, 2),
     accountType: DataTypes.STRING,
     limit: DataTypes.INTEGER,
     accountNumber: DataTypes.INTEGER

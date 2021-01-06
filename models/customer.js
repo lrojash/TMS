@@ -15,12 +15,12 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
       })
-      // Customer.hasMany(models.Saving, {
-      //   foreignKey: 'customer_number',
-      //   as: 'customer',
-      //   onDelete: 'CASCADE',
-      //   onUpdate: 'CASCADE'
-      // })
+      Customer.hasMany(models.Saving, {
+        foreignKey: 'customer_number',
+        as: 'customer',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
+      })
     }
   };
   Customer.init({

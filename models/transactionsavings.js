@@ -3,26 +3,26 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Transactions extends Model {
+  class TransactionSavings extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Transactions.belongsTo(models.Checking, {
+      TransactionSavings.belongsTo(models.Saving, {
         foreignKey: 'account_number',
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
       })
     }
   };
-  Transactions.init({
+  TransactionSavings.init({
     accountNumber: {
-      type: DataTypes.INTEGER,
+      type:DataTypes.INTEGER,
       field: 'account_number',
-      references: {
-        model: 'checkings',
+      references:{
+        model: 'savings',
         key: 'account_number'
       }
     },
@@ -31,8 +31,8 @@ module.exports = (sequelize, DataTypes) => {
     interaction: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'Transactions',
-    tableName: 'transactions'
+    modelName: 'TransactionSavings',
+    tableName: 'transactionSavings'
   });
-  return Transactions;
+  return TransactionSavings;
 };

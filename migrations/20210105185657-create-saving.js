@@ -5,7 +5,6 @@ module.exports = {
       id: {
         allowNull: false,
         autoIncrement: true,
-        primaryKey: true,
         type: Sequelize.INTEGER
       },
       customerNumber: {
@@ -21,7 +20,7 @@ module.exports = {
       },
       accountType: {
         type: Sequelize.STRING,
-        field: 'account_type'
+        field: 'account_type',
       },
       limit: {
         type: Sequelize.INTEGER,
@@ -30,6 +29,7 @@ module.exports = {
       accountNumber: {
         type: Sequelize.INTEGER,
         field: 'account_number',
+        primaryKey: true,
       },
       createdAt: {
         allowNull: false,

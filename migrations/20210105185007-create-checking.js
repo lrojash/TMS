@@ -5,7 +5,6 @@ module.exports = {
       id: {
         allowNull: false,
         autoIncrement: true,
-        primaryKey: true,
         type: Sequelize.INTEGER
       },
       customerNumber: {
@@ -18,13 +17,14 @@ module.exports = {
       },
       accountType: {
         type: Sequelize.STRING,
-        field: 'account_type'
+        field: 'account_type',
       },
       balance: {
         type: Sequelize.DECIMAL(10,2),
         defaultValue: 0.00   
       },
       accountNumber: {
+        primaryKey: true,
         type: Sequelize.INTEGER,
         field: 'account_number'
       },

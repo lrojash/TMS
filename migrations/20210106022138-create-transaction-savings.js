@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('transactions', {
+    await queryInterface.createTable('transactionSavings', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -12,7 +12,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         field: 'account_number',
         references: {
-          model: 'checkings',
+          model: 'savings',
           key: 'account_number'
         }
       },
@@ -20,7 +20,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       amount: {
-        type: Sequelize.DECIMAL(10, 2),
+        type: Sequelize.DECIMAL(10,2),
         defaultValue: 0.00
       },
       interaction: {
@@ -29,18 +29,16 @@ module.exports = {
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        field: 'created_at',
         defaultValue: new Date()
       },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        field: 'updated_at',
         defaultValue: new Date()
       }
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('transactions');
+    await queryInterface.dropTable('transactionSavings');
   }
 };
