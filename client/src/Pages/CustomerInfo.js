@@ -1,4 +1,7 @@
 import React, { useState } from 'react'
+import CustomerCard from '../components/CustomerCard'
+import AccountView from '../components/AccountView'
+import '../styles/CustomerInfo.css'
 
 const CustomerInfo = (props) => {
     const [firstName, setFirstName] = useState('')
@@ -11,6 +14,12 @@ const CustomerInfo = (props) => {
             <h1>
                 works
             </h1>
+            <div className="account-card">
+                <AccountView {...props} />
+            </div>
+            <div className="customer-card">
+                <CustomerCard {...props} />
+            </div>
         </div>
     )
 }
