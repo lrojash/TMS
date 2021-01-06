@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom'
 import LandingPage from '../Pages/LandingPage'
 import MainPage from '../Pages/MainPage'
 import NewTeller from '../Pages/NewTeller'
+import CustomerInfo from '../Pages/CustomerInfo'
 
 const Router = () => {
     const [authenticated, setAuth] = useState(false)
@@ -24,6 +25,11 @@ const Router = () => {
                     exact
                     path="/newTeller"
                     component={(props) => <NewTeller {...props} authenticated={authenticated} tellerInfo={tellerInfo} setAuth={setAuth} />}
+                />
+                <Route
+                    exact
+                    path="/customerInfo"
+                    component={(props) => <CustomerInfo {...props} authenticated={authenticated} tellerInfo={tellerInfo} setAuth={setAuth} />}
                 />
             </Switch>
         </main>

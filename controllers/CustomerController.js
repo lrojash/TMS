@@ -7,7 +7,7 @@ const GetCustomer = async (req, res) => {
 
     console.log('inside controller', req.body)
     try {
-        if (req.body.customerID) {
+        if (req.body.customerId) {
             let customerId = req.body.customerId
             console.log('after seeting it', customerId)
             let customer = await Customer.findOne({
@@ -15,18 +15,20 @@ const GetCustomer = async (req, res) => {
                     id: customerId
                 }
             })
-            res.send(customer)
+            return res.send(customer)
         }
-        let { body } = req
-        const { firstName, lastName, dob } = body
-        let customer = await Customer.findOne({
-            where: {
-                firstName: firstName,
-                lastName: lastName,
-                dateOfBirth: dob
-            }
-        })
-        res.send(customer)
+        else {
+            let { body } = req
+            const { firstName, lastName, dob } = body
+            let customer = await Customer.findOne({
+                where: {
+                    firstName: firstName,
+                    lastName: lastName,
+                    dateOfBirth: dob
+                }
+            })
+            return res.send(customer)
+        }
     } catch (error) {
         throw error
     }

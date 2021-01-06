@@ -21,6 +21,7 @@ const SearchBy = (props) => {
         try {
             const response = await __GetCustomer({ customerId })
             console.log('after api request', response)
+            props.history.push('/customerInfo')
         } catch (error) {
             throw error
         }
@@ -30,6 +31,7 @@ const SearchBy = (props) => {
         try {
             const response = await __GetCustomer({ firstName, lastName, dob })
             console.log('after api request', response)
+            props.history.push('/customerInfo')
         } catch (error) {
             throw error
         }
