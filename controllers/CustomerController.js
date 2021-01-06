@@ -5,10 +5,10 @@ const { Op, literal, fn, col } = require('sequelize')
 
 const GetCustomer = async (req, res) => {
 
-    console.log('inside controller', req.body)
+    console.log('inside controller', req.body.customerInfo)
     try {
-        if (req.body.customerId) {
-            let customerId = req.body.customerId
+        if (req.body.customerInfo) {
+            let customerId = req.body.customerInfo.customerId
             console.log('after seeting it', customerId)
             let customer = await Customer.findOne({
                 where: {

@@ -2,10 +2,10 @@ import React from 'react'
 import Router from './components/Router'
 import './styles/Main.css'
 
-function App() {
+function App(props) {
     return (
         <div>
-            <Router />
+            <Router {...props}/>
         </div>
     )
 }

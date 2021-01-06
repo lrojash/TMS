@@ -3,6 +3,11 @@
     grid-template-columns: auto auto;
     grid-template-rows: auto auto ;
 }
+.customer-nav-bar{
+    grid-column-start:1;
+    grid-column-end: 3;
+    background: grey;
+}
 .customer-card{
     border: 2px solid blue;
     grid-column-start: 1;

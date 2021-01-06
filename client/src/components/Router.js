@@ -5,9 +5,11 @@ import MainPage from '../Pages/MainPage'
 import NewTeller from '../Pages/NewTeller'
 import CustomerInfo from '../Pages/CustomerInfo'
 
-const Router = () => {
+const Router = (props) => {
     const [authenticated, setAuth] = useState(false)
     const [tellerInfo, setTellerInfo] = useState('')
+    const [customerInfo, setCustomerInfo] = useState('')
+
     return (
         <main>
             <Switch>
@@ -19,7 +21,7 @@ const Router = () => {
                 <Route
                     exact
                     path="/main"
-                    component={(props) => <MainPage {...props} authenticated={authenticated} tellerInfo={tellerInfo} setAuth={setAuth} />}
+                    component={(props) => <MainPage {...props} authenticated={authenticated} tellerInfo={tellerInfo} setAuth={setAuth} customerInfo={customerInfo} setCustomerInfo={setCustomerInfo} />}
                 />
                 <Route
                     exact
@@ -29,7 +31,7 @@ const Router = () => {
                 <Route
                     exact
                     path="/customerInfo"
-                    component={(props) => <CustomerInfo {...props} authenticated={authenticated} tellerInfo={tellerInfo} setAuth={setAuth} />}
+                    component={(props) => <CustomerInfo {...props} authenticated={authenticated} tellerInfo={tellerInfo} setAuth={setAuth} customerInfo={customerInfo} setCustomerInfo={setCustomerInfo} />}
                 />
             </Switch>
         </main>

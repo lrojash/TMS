@@ -11,12 +11,9 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
         maxWidth: 752
     },
-    demo: {
-        backgroundColor: theme.palette.background.paper
-    },
     title: {
         margin: theme.spacing(4, 0, 2)
-    }
+    },
 }));
 
 function generate(element) {
@@ -31,24 +28,20 @@ export default function CustomerCard(props) {
     const classes = useStyles();
     const [dense, setDense] = React.useState(false);
     const [secondary, setSecondary] = React.useState(false);
-
+    console.log('inside card', props)
     return (
         <div className={classes.root}>
-            <Grid container spacing={2} style={{width: 750, whiteSpace: 'nowrap'}}>
+            <Grid container spacing={2} style={{ width: 750, whiteSpace: 'nowrap' }}>
                 <Grid item xs={12} md={6}>
                     <Typography variant="h6" className={classes.title}>
-                        Customer Name
-            </Typography>
+                        {`${props.customerInfo.firstName} ${props.customerInfo.lastName}`}
+                    </Typography>
                     <div className={classes.demo}>
                         <List dense={dense}>
-                            {generate(
-                                <ListItem>
-                                    <ListItemText
-                                        primary="Account-Info"
-                                        secondary={secondary ? "Secondary text" : null}
-                                    />
-                                </ListItem>
-                            )}
+                            <ListItemText
+                                primary={props.customerInfo.dateOfBirth} />
+                            <ListItemText
+                                primary="Active" />
                         </List>
                     </div>
                 </Grid>

@@ -3,7 +3,7 @@ import NavBar from '../components/NavBar'
 import SearchBy from '../components/SearchBy'
 
 const MainPage = (props) => {
-    console.log('reached main', props)
+    console.log('inside main', props)
     return (
         <div className="main-page">
             <NavBar {...props}/>
