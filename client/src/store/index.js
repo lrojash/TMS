@@ -10,6 +10,7 @@ const store = createStore(
         // accountSate: AccountReducer,
         tellerState: TellerReducer,
         customerState: CustomerReducer,
+        accountState: AccountReducer
     }),
     composeWithDevTools()
 )

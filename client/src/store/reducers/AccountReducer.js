@@ -1,14 +1,17 @@
-import { WITHDRAW_ACCOUNT, NEW_AMOUNT_TO, NEW_AMOUNT_FROM } from '../types'
+import { WITHDRAW_ACCOUNT, NEW_AMOUNT_TO, NEW_AMOUNT_FROM, SET_ACCOUNTS } from '../types'
 
 const iState = {
     amountTo: 0,
     amountFrom: 0,
     difference: 0,
-    account: []
+    accounts: []
+
 }
 
 const AccountReducer = (state = iState, action) => {
     switch (action.type) {
+        case SET_ACCOUNTS:
+            return {...state, accounts: [...state.accounts, action.payload]}
         case NEW_AMOUNT_TO:
             return { ...state, amountTo: action.payload }
         case NEW_AMOUNT_FROM:

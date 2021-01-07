@@ -1,4 +1,4 @@
-import {WITHDRAW_ACCOUNT, NEW_AMOUNT_TO, NEW_AMOUNT_FROM} from '../types'
+import {WITHDRAW_ACCOUNT, NEW_AMOUNT_TO, NEW_AMOUNT_FROM, SET_ACCOUNTS} from '../types'
 
 export const NewAmountTo = (amount) => ({
     type: NEW_AMOUNT_TO,
@@ -12,4 +12,9 @@ export const NewAmountFrom = (amount) => ({
 export const WithdrawAccount = (account) => ({
     type: WITHDRAW_ACCOUNT,
     payload: account
+})
+
+export const SetAccounts = (accounts) => ({
+    type: SET_ACCOUNTS,
+    payload: accounts
 })

@@ -4,8 +4,9 @@ import TextInput from './TextInput'
 import { __GetCustomer, __GetCustomerAccounts } from '../services/CustomerServices'
 
 import { AddCustomer, AddAccount, SearchTerm } from '../store/actions/CustomerActions'
-
+import { SetAccounts } from '../store/actions/AccountActions'
 const SearchBy = (props) => {
+    console.log('inside search: ', props)
     const handleChange = (e) => {
         props.search(e.target.value)
     }
@@ -16,8 +17,9 @@ const SearchBy = (props) => {
         try {
             const response1 = await __GetCustomer({ customerInfo })
             const response2 = await __GetCustomerAccounts({ customerInfo })
-            let response = { response1, response2 }
-            props.addCustomer(response)
+            
+            props.addCustomer(response1)
+            props.setAccounts(response2)
             props.history.push('/customerInfo')
         } catch (error) {
             throw error
@@ -74,14 +76,17 @@ const SearchBy = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-        customerState: state.customerState
+        customerState: state.customerState,
+        accountState: state.AccountSTate
     }
 }
 
 const mapActionsToProps = (dispatch) => {
     return {
         search: (term) => dispatch(SearchTerm(term)),
-        addCustomer: (customer) => dispatch(AddCustomer(customer))
+        addCustomer: (customer) => dispatch(AddCustomer(customer)),
+        setAccounts: (accounts) => dispatch(SetAccounts(accounts))
+
     }
 }
 

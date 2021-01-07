@@ -5,7 +5,7 @@ import '../styles/Nav.css'
 
 
 const CustomerNavBar = (props) => {
-  
+    
     return (
         <div className="customer-nav-bar">
             <Tab to="/withdraw" component={Link} label="Withdraw" className="link" />

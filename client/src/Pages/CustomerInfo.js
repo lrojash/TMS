@@ -19,13 +19,15 @@ const CustomerInfo = (props) => {
             <div className="customer-card">
                 <CustomerCard {...props} />
             </div>
+
         </div>
     )
 }
 
 const mapStateToProps = (state) => {
     return {
-        customerState: state.customerState
+        customerState: state.customerState,
+        accountState: state.accountState,
     }
 }
 export default connect(mapStateToProps)(CustomerInfo)

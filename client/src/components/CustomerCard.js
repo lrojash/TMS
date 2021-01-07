@@ -19,9 +19,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CustomerCard(props) {
     const classes = useStyles();
-    
-    let customerData = props.customerState.customer[0].response1
-    
+
+    let customerData = props.customerState.customer[0]
+
     return (
         <div className={classes.root}>
             <Grid container spacing={2} style={{ width: 750, whiteSpace: 'nowrap' }}>

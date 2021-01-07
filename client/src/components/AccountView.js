@@ -27,10 +27,6 @@ const StyledTableRow = withStyles((theme) => ({
     }
 }))(TableRow);
 
-function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-}
-
 
 const useStyles = makeStyles({
     table: {
@@ -40,32 +36,35 @@ const useStyles = makeStyles({
 
 export default function AccountView(props) {
 
-    const accountData = props.customerState.customer[0].response2
-    console.log(accountData.checkingAccounts[0])
-    let accounts = [accountData.checkingAccounts[0], accountData.savingsAccounts[0]]
-    console.log('account; ', accounts)
+    let accounts = [props.accountState.accounts[0].checkingAccounts[0], props.accountState.accounts[0].savingsAccounts[0]]
+
+
     const classes = useStyles();
 
     return (
-        <TableContainer component={Paper} style={{ width: '600px', whiteSpace: 'nowrap' }}>
-            <Table className={classes.table} aria-label="customized table">
-                <TableHead>
-                    <TableRow>
-                        <StyledTableCell>Account</StyledTableCell>
-                        <StyledTableCell align="right">Balance</StyledTableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {accounts.map((account) => (
-                        <StyledTableRow key={account.accountType}>
-                            <StyledTableCell component="th" scope="row">
-                                {account.accountType}
-                            </StyledTableCell>
-                            <StyledTableCell align="right">${account.balance}</StyledTableCell>
-                        </StyledTableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
+        <div className="table-info">
+            <TableContainer component={Paper} style={{ width: '600px', whiteSpace: 'nowrap' }}>
+                <Table className={classes.table} aria-label="customized table">
+                    <TableHead>
+                        <TableRow>
+                            <StyledTableCell>Account</StyledTableCell>
+                            <StyledTableCell align="right">Balance</StyledTableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {accounts.map((account) => (
+                            <StyledTableRow key={account.accountType}>
+                                <StyledTableCell component="th" scope="row">
+                                    {account.accountType}
+                                </StyledTableCell>
+                                <StyledTableCell align="right">${account.balance}</StyledTableCell>
+                            </StyledTableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+
+        </div>
+
     );
 }

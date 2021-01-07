@@ -7,6 +7,7 @@ import {
     setUserPassword,
     setCurrentUser,
 } from '../store/actions/TellerActions'
+import '../styles/Main.css'
 
 const SingInpage = (props) => {
     console.log('inside sign in: ', props)
@@ -39,12 +40,14 @@ const SingInpage = (props) => {
                     placeholder="USER ID"
                     name="userId"
                     type="userId"
+
                     onChange={handleChange}
                 />
                 <TextInput
-                    placeholder="PASSWORD"
-                    name="password"
-                    type="password"
+                    placeholder="Password"
+                    name="text"
+                    type="text"
+
                     onChange={handleChange}
                 />
                 <button className="sign-in-button">

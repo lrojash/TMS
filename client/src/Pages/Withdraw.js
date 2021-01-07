@@ -2,60 +2,87 @@ import React from 'react'
 import { connect } from 'react-redux'
 import TextInput from '../components/TextInput'
 import CustomerNavBar from '../components/CustomerNavBar'
-import TextField from '@material-ui/core/TextField';
+
+
+import { makeStyles } from '@material-ui/core/styles';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import Button from '@material-ui/core/Button';
+
 
 import { NewAmountFrom, NewAmountTo, WithdrawAccount } from '../store/actions/AccountActions'
 
+const useStyles = makeStyles((theme) => ({
+    button: {
+        display: 'block',
+        marginTop: theme.spacing(2),
+    },
+    formControl: {
+        margin: theme.spacing(1),
+        minWidth: 120,
+    },
+}));
+
 const Withdraw = (props) => {
-    console.log('inside withdraw', props)
 
-    // const handleChange = (e) => {
-    //     e.preventDefault()
-    //     props.newAmountFrom(e.target.value)
+    const classes = useStyles();
 
-    // }
+    const [open, setOpen] = React.useState(false);
 
-    // const handleSubmit = (e) => {
-    //     e.preventDefault()
-    //     console.log('after setting: ', props.accountState)
-    // }
- 
+    const handleChange = (e) => {
+        e.preventDefault()
+        console.log('changin: ', e.target)
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    const handleOpen = () => {
+        setOpen(true);
+    };
+    const accounts = [props.accountState.accounts[0].checkingAccounts[0], props.accountState.accounts[0].savingsAccounts[0]]
+
+
     return (
-        <div className="withdraw-page">
-            {/* <CustomerNavBar {...props} />
-            <h5 className="withdraw-title">Widthraw</h5>
-            <form className="form-container" onSubmit={handleSubmit}>
-                <div className='to-account'>
-                    <TextField
-                        id="checking account"
-                        select
-                        label="select"
-                        value="checking account 1"
-                        helperText="Select An Account"
-                    >
-
-                    </TextField>
-                    <TextInput
-                        placeholder="Amount"
-                        name="amountTo"
-                        type="amountTo"
-                        onChange={handleChange}
-                    />
-                </div>
-                <button className="confirm">
-                    CONFIRM
-                </button>
-            </form> */}
-            <div>
-                <h1>works</h1>
-            </div>
-        </div >
-    )
+        <div>
+            <Button className={classes.button} onClick={handleOpen}>
+                Select Account
+        </Button>
+            <FormControl className={classes.formControl}>
+                <InputLabel id="demo-controlled-open-select-label">Select</InputLabel>
+                <Select
+                    labelId="demo-controlled-open-select-label"
+                    id="demo-controlled-open-select"
+                    open={open}
+                    onClose={handleClose}
+                    onOpen={handleOpen}
+                    // value={age}
+                    onChange={handleChange}
+                >
+                    <MenuItem value="">
+                        <em>None</em>
+                    </MenuItem>
+                    {
+                        accounts.map((account, index) => (
+                            <MenuItem key={index} value={account.accountType}>{account.accountType}</MenuItem>
+                        ))
+                    }
+                    {/* <MenuItem value={10}>Ten</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem> */}
+                </Select>
+            </FormControl>
+        </div>
+    );
 }
 
 const mapStateToProps = (state) => {
     return {
-        accountState: state.accountState
+        accountState: state.accountState,
+        customerState: state.customerState
     }
 }
 
