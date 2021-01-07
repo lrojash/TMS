@@ -1,61 +1,91 @@
 import React, { useState } from 'react'
+import { connect } from 'react-redux'
 import TextInput from '../components/TextInput'
 import NavBar from '../components/NavBar'
 import RadioButtons from '../components/RadioButtons'
 import { __CreateTeller } from '../services/TellerServices'
 
+import {
+    setNewUserId,
+    setNewUserPassword
+} from '../store/actions/TellerActions'
+
 const NewTeller = (props) => {
+    console.log('inside new teller', props)
+    const [admin, setAdmin] = useState('')
     const [userId, setUserId] = useState('')
     const [password, setPassword] = useState('')
-    // const {
-    //     admin: [admin, setAdmin]
-    // } = {
-    //     admin: useState(false),
-    //     ...(props.state || {})
-    // }
-    const [admin, setAdmin] = useState('')
 
-    const handleChange = (e, setFunction) => {
-        setFunction(e.target.value)
+    const handleChange = (e) => {
+        e.preventDefault()
+        if (e.target.name === 'userId') {
+            setUserId(e.target.value)
+        }
+        else if (e.target.name === 'password') {
+            setPassword(e.target.value)
+        }
+        else {
+            setAdmin(e.target.value)
+        }
     }
+
     const handleSubmit = async (e) => {
         e.preventDefault()
-        try{
-            const response = await __CreateTeller({userId, password, admin})
-            if(response.message) {
+        try {
+            const response = await __CreateTeller({ userId, password, admin })
+            if (response.message) {
                 alert('User Id already exists. \nPlease Try again')
             }
             alert('User Created Successfully')
-        } catch(error) {
-            throw error 
+        } catch (error) {
+            throw error
         }
         props.history.push('/main')
     }
 
+
     return (
         <div className="newTeller-page">
-            <NavBar {...props} />
+            {/* <NavBar {...props} /> */}
             <form className="form-sign-in" onSubmit={handleSubmit}>
                 <TextInput
                     placeholder="USER ID"
                     name="userId"
                     type="userId"
-                    value={userId}
-                    onChange={(e) => handleChange(e, setUserId)}
+
+                    onChange={handleChange}
                 />
                 <TextInput
                     placeholder="PASSWORD"
                     name="password"
                     type="pasword"
-                    value={password}
-                    onChange={(e) => handleChange(e, setPassword)}
+                    onChange={handleChange}
                 />
-                <RadioButtons {...props} onChange={(e) => handleChange(e, setAdmin)} />
+                <RadioButtons {...props} onChange={handleChange} />
                 <button className="create-button">
                     CREATE
                 </button>
             </form>
         </div>
+        // <div>
+        //     <h1>testing</h1>
+        // </div>
     )
 }
-export default NewTeller
+
+
+const mapStateToProps = (state) => {
+    return {
+        tellerSate: state.tellerState
+    }
+}
+
+const mapActionsToProps = (dispatch) => {
+    return {
+        createUser: (userId) => dispatch(setNewUserId(userId)),
+        createPassword: (password) => dispatch(setNewUserPassword(password))
+
+    }
+}
+
+export default connect(mapStateToProps, mapActionsToProps)(NewTeller)

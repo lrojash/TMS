@@ -5,20 +5,13 @@ import '../styles/Nav.css'
 
 
 const CustomerNavBar = (props) => {
-    let admin = props.tellerInfo.admin
-
-    const [value, setValue] = useState('')
-
-    const onClick = (e) => {
-        console.log('inside click: ', e.target)
-    }
-
+  
     return (
         <div className="customer-nav-bar">
             <Tab to="/withdraw" component={Link} label="Withdraw" className="link" />
             <Tab to="/deposit" component={Link} label="deposit" className="link" />
             <Tab to="/transfer" component={Link} label="Transfer" className="link" />
-            <Tab to="/endsession" component={Link} label="End Session" className="Link" />
+            <Tab to="/main" component={Link} label="End Session" className="Link" />
         </div>
     )
 }

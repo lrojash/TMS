@@ -16,30 +16,23 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function generate(element) {
-    return [0, 1, 2].map((value) =>
-        React.cloneElement(element, {
-            key: value
-        })
-    );
-}
 
 export default function CustomerCard(props) {
     const classes = useStyles();
-    const [dense, setDense] = React.useState(false);
-    const [secondary, setSecondary] = React.useState(false);
+    
+    let customerData = props.customerState.customer[0].response1
     
     return (
         <div className={classes.root}>
             <Grid container spacing={2} style={{ width: 750, whiteSpace: 'nowrap' }}>
                 <Grid item xs={12} md={6}>
-                    <Typography variant="h6" className={classes.title}>
-                        {`${props.customerInfo.response1.firstName} ${props.customerInfo.response1.lastName}`}
+                    <Typography variant="h2" className={classes.title}>
+                        {`${customerData.firstName} ${customerData.lastName}`}
                     </Typography>
                     <div className={classes.demo}>
-                        <List dense={dense}>
+                        <List>
                             <ListItemText
-                                primary={props.customerInfo.dateOfBirth} />
+                                primary={customerData.dateOfBirth} />
                             <ListItemText
                                 primary="Active" />
                         </List>

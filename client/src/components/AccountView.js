@@ -15,7 +15,7 @@ const StyledTableCell = withStyles((theme) => ({
     },
     body: {
         fontSize: 14,
-        
+
     }
 }))(TableCell);
 
@@ -31,13 +31,6 @@ function createData(name, calories, fat, carbs, protein) {
     return { name, calories, fat, carbs, protein };
 }
 
-const rows = [
-    createData("Checking", "$159"),
-    createData("Checking-two", "$237"),
-    createData("Savings", "$262"),
-    createData("Joint-Check", "$305"),
-    createData("Joint-Savings", "$356")
-];
 
 const useStyles = makeStyles({
     table: {
@@ -46,13 +39,15 @@ const useStyles = makeStyles({
 });
 
 export default function AccountView(props) {
-    
-    let accounts = [props.customerInfo.response2.checkingAccounts[0], props.customerInfo.response2.savingsAccounts[0]]
-    console.log('after', accounts)
+
+    const accountData = props.customerState.customer[0].response2
+    console.log(accountData.checkingAccounts[0])
+    let accounts = [accountData.checkingAccounts[0], accountData.savingsAccounts[0]]
+    console.log('account; ', accounts)
     const classes = useStyles();
 
     return (
-        <TableContainer component={Paper} style={{width: '600px', whiteSpace: 'nowrap'}}>
+        <TableContainer component={Paper} style={{ width: '600px', whiteSpace: 'nowrap' }}>
             <Table className={classes.table} aria-label="customized table">
                 <TableHead>
                     <TableRow>

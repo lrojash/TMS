@@ -5,17 +5,12 @@ import '../styles/Nav.css'
 
 
 const NavBar = (props) => {
-    let admin = props.tellerInfo.admin
-
-    const [value, setValue] = useState('')
-
-    const onClick = (e) => {
-        console.log('inside click: ', e.target)
-    }
+    // console.log('inside nav bar: ', props.tellerState.currentUser[0].admin)
+    let admin = props.tellerState.currentUser[0].admin
 
     return admin ? (
         <div className="nav-bar">
-            <Tab to="newTeller" component={Link} label="New Teller" className="link" to="newTeller" />
+            <Tab to="/newTeller" component={Link} label="New Teller" className="link" to="newTeller" />
 
             <Tab to="/" component={Link} label="Sign Out" className="link" />
         </div>

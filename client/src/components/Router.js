@@ -1,14 +1,15 @@
 import React, { useState } from 'react'
 import { Switch, Route } from 'react-router-dom'
-import LandingPage from '../Pages/LandingPage'
 import MainPage from '../Pages/MainPage'
 import NewTeller from '../Pages/NewTeller'
 import CustomerInfo from '../Pages/CustomerInfo'
+import Withdraw from '../Pages/Withdraw'
+import SignInPage from '../Pages/SignInPage'
 
-const Router = (props) => {
-    const [authenticated, setAuth] = useState(false)
-    const [tellerInfo, setTellerInfo] = useState('')
-    const [customerInfo, setCustomerInfo] = useState('')
+const Router = () => {
+
+
+
 
     return (
         <main>
@@ -16,22 +17,27 @@ const Router = (props) => {
                 <Route
                     exact
                     path="/"
-                    component={(props) => <LandingPage {...props} authenticated={authenticated} tellerInfo={tellerInfo} setTellerInfo={setTellerInfo} setAuth={setAuth} />}
+                    component={(props) => <SignInPage {...props} />}
                 />
                 <Route
                     exact
                     path="/main"
-                    component={(props) => <MainPage {...props} authenticated={authenticated} tellerInfo={tellerInfo} setAuth={setAuth} customerInfo={customerInfo} setCustomerInfo={setCustomerInfo} />}
+                    component={(props) => <MainPage {...props} />}
                 />
                 <Route
                     exact
                     path="/newTeller"
-                    component={(props) => <NewTeller {...props} authenticated={authenticated} tellerInfo={tellerInfo} setAuth={setAuth} />}
+                    component={(props) => <NewTeller {...props} />}
                 />
                 <Route
                     exact
                     path="/customerInfo"
-                    component={(props) => <CustomerInfo {...props} authenticated={authenticated} tellerInfo={tellerInfo} setAuth={setAuth} customerInfo={customerInfo} setCustomerInfo={setCustomerInfo} />}
+                    component={(props) => <CustomerInfo {...props} />}
+                />
+                <Route
+                    exact
+                    path="/withdraw"
+                    component={(props) => <Withdraw {...props} />}
                 />
             </Switch>
         </main>
