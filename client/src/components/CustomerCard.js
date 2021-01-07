@@ -28,13 +28,13 @@ export default function CustomerCard(props) {
     const classes = useStyles();
     const [dense, setDense] = React.useState(false);
     const [secondary, setSecondary] = React.useState(false);
-    console.log('inside card', props)
+    
     return (
         <div className={classes.root}>
             <Grid container spacing={2} style={{ width: 750, whiteSpace: 'nowrap' }}>
                 <Grid item xs={12} md={6}>
                     <Typography variant="h6" className={classes.title}>
-                        {`${props.customerInfo.firstName} ${props.customerInfo.lastName}`}
+                        {`${props.customerInfo.response1.firstName} ${props.customerInfo.response1.lastName}`}
                     </Typography>
                     <div className={classes.demo}>
                         <List dense={dense}>

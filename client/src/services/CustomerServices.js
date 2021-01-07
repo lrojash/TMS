@@ -8,3 +8,12 @@ export const __GetCustomer = async (userData) => {
         throw error 
     }
 }
+
+export const __GetCustomerAccounts = async(userData) => {
+    try{
+        const res = await ApiClient.post('/customer/account', userData)
+        return res.data
+    } catch(error) {
+        throw error 
+    }
+}

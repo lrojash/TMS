@@ -100,7 +100,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import TextInput from './TextInput'
-import { __GetCustomer } from '../services/CustomerServices'
+import { __GetCustomer, __GetCustomerAccounts } from '../services/CustomerServices'
 
 import { AddCustomer, AddAccount, SearchTerm } from '../store/actions/CustomerActions'
 
@@ -110,10 +110,12 @@ const SearchBy = (props) => {
     }
     const handleSubmit = async (e) => {
         e.preventDefault()
-        let customerInfo = {customerId: props.customerState.searchTerm}
+        let customerInfo = { customerId: props.customerState.searchTerm }
         try {
-            const response = await __GetCustomer({ customerInfo })
-            props.addCustomer(response)
+            const response1 = await __GetCustomer({ customerInfo })
+            const response2 = await __GetCustomerAccounts({ customerInfo })
+            let response = {response1, response2}
+            props.addCustomer(response1)
             props.setCustomerInfo(response)
             props.history.push('/customerInfo')
         } catch (error) {

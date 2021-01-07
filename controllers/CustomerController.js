@@ -1,4 +1,4 @@
-const { Customer } = require('../models')
+const { Customer, Checking, Saving } = require('../models')
 
 const { Op, literal, fn, col } = require('sequelize')
 
@@ -34,6 +34,33 @@ const GetCustomer = async (req, res) => {
     }
 }
 
+const GetCustomerAccount = async (req, res) => {
+    console.log('inside get customer controller', req.body)
+    try {
+        let customerId = req.body.customerInfo.customerId
+        let checkingAccounts = await Checking.findAll({
+            where: {
+                customer_number: customerId
+            }
+        })
+        let savingsAccounts = await Saving.findAll({
+            where: {
+                customer_number: customerId
+            }
+        })
+
+        let accounts = {
+            checkingAccounts,
+            savingsAccounts
+        }
+        console.log(savingsAccounts)
+        res.send(accounts)
+
+    } catch (error) {
+        throw error
+    }
+}
 module.exports = {
     GetCustomer,
+    GetCustomerAccount,
 }

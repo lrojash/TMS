@@ -45,7 +45,10 @@ const useStyles = makeStyles({
     }
 });
 
-export default function CustomizedTables() {
+export default function AccountView(props) {
+    
+    let accounts = [props.customerInfo.response2.checkingAccounts[0], props.customerInfo.response2.savingsAccounts[0]]
+    console.log('after', accounts)
     const classes = useStyles();
 
     return (
@@ -58,12 +61,12 @@ export default function CustomizedTables() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {rows.map((row) => (
-                        <StyledTableRow key={row.name}>
+                    {accounts.map((account) => (
+                        <StyledTableRow key={account.accountType}>
                             <StyledTableCell component="th" scope="row">
-                                {row.name}
+                                {account.accountType}
                             </StyledTableCell>
-                            <StyledTableCell align="right">{row.calories}</StyledTableCell>
+                            <StyledTableCell align="right">${account.balance}</StyledTableCell>
                         </StyledTableRow>
                     ))}
                 </TableBody>
