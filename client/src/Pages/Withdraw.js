@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import TextInput from '../components/TextInput'
 import CustomerNavBar from '../components/CustomerNavBar'
-
+import { __Withdraw } from '../services/AccountServices'
 
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -12,7 +12,7 @@ import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 
 
-import { NewAmountFrom, NewAmountTo, WithdrawAccount } from '../store/actions/AccountActions'
+import { SetAmount, SetAccountFrom, SetAccountTypeFrom } from '../store/actions/AccountActions'
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -31,9 +31,30 @@ const Withdraw = (props) => {
 
     const [open, setOpen] = React.useState(false);
 
+    const accounts = [props.accountState.accounts[0].checkingAccounts[0], props.accountState.accounts[0].savingsAccounts[0]]
+
+    const getAccountInfo = (acctNum) => {
+        let acctType = ''
+        accounts.forEach(account => {
+            if (acctNum === account.accountNumber) {
+                acctType = account.accountType
+            }
+        })
+        return acctType
+    }
+
+
     const handleChange = (e) => {
         e.preventDefault()
-        console.log('changin: ', e.target)
+        if (e.target.name === 'amount') {
+            props.setAmount(e.target.value)
+        }
+        else {
+            let accountNumber = e.target.value
+            let accountType = getAccountInfo(accountNumber)
+            props.setType(accountType)
+            props.setAcct(accountNumber)
+        }
     };
 
     const handleClose = () => {
@@ -43,40 +64,64 @@ const Withdraw = (props) => {
     const handleOpen = () => {
         setOpen(true);
     };
-    const accounts = [props.accountState.accounts[0].checkingAccounts[0], props.accountState.accounts[0].savingsAccounts[0]]
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        let accountNumber = props.accountState.accountFrom
+        let accountType = props.accountState.accountTypeFrom
+        let amount = props.accountState.amount
+
+        try {
+            let action = await __Withdraw({ accountNumber, accountType, amount })
+        } catch (error) {
+            throw error
+        }
+
+    }
+
+
+
 
 
     return (
         <div>
             <Button className={classes.button} onClick={handleOpen}>
                 Select Account
-        </Button>
-            <FormControl className={classes.formControl}>
-                <InputLabel id="demo-controlled-open-select-label">Select</InputLabel>
-                <Select
-                    labelId="demo-controlled-open-select-label"
-                    id="demo-controlled-open-select"
-                    open={open}
-                    onClose={handleClose}
-                    onOpen={handleOpen}
-                    // value={age}
+            </Button>
+            <form className="withdraw-form" onSubmit={handleSubmit}>
+                <FormControl className={classes.formControl}>
+                    <InputLabel id="demo-controlled-open-select-label">Select</InputLabel>
+                    <Select
+                        labelId="demo-controlled-open-select-label"
+                        id="demo-controlled-open-select"
+                        open={open}
+                        onClose={handleClose}
+                        onOpen={handleOpen}
+                        // value={age}
+                        onChange={handleChange}
+                    >
+                        <MenuItem value="">
+                            <em>None</em>
+                        </MenuItem>
+                        {
+                            accounts.map((account, index) => (
+                                <MenuItem key={index} value={account.accountNumber}>{account.accountType}</MenuItem>
+                            ))
+                        }
+                    </Select>
+                </FormControl>
+                <TextInput
+                    placeholder="AMOUNT"
+                    name="amount"
+                    type="amount"
                     onChange={handleChange}
-                >
-                    <MenuItem value="">
-                        <em>None</em>
-                    </MenuItem>
-                    {
-                        accounts.map((account, index) => (
-                            <MenuItem key={index} value={account.accountType}>{account.accountType}</MenuItem>
-                        ))
-                    }
-                    {/* <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem> */}
-                </Select>
-            </FormControl>
+                />
+                <button className="withdraw-submit">
+                    CONFIRM
+                 </button>
+            </form>
         </div>
-    );
+    )
 }
 
 const mapStateToProps = (state) => {
@@ -88,8 +133,9 @@ const mapStateToProps = (state) => {
 
 const mapActionsToProps = (dispatch) => {
     return {
-        newAmountFrom: (amount) => dispatch(NewAmountFrom(amount)),
-        newAmountTo: (amount) => dispatch(NewAmountTo(amount))
+        setAmount: (amount) => dispatch(SetAmount(amount)),
+        setAcct: (acctNum) => dispatch(SetAccountFrom(acctNum)),
+        setType: (type) => dispatch(SetAccountTypeFrom(type))
     }
 }
 
