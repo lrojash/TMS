@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Withdraw = (props) => {
+const Deposit = (props) => {
 
     const classes = useStyles();
 
@@ -71,11 +71,9 @@ const Withdraw = (props) => {
         let accountNumber = props.accountState.accountFrom
         let accountType = props.accountState.accountTypeFrom
         let amount = props.accountState.amount
-        let actionType = "withdraw"
-        let customerNumber = props.customerState.customerNumber
-
+        let action = "deposit"
         try {
-            let action = await __Update({ accountNumber, accountType, amount, actionType, customerNumber })
+            let action = await __Update({ accountNumber, accountType, amount })
         } catch (error) {
             throw error
         }
@@ -143,4 +141,4 @@ const mapActionsToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapActionsToProps)(Withdraw)
+export default connect(mapStateToProps, mapActionsToProps)(Deposit)

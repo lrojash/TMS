@@ -1,30 +1,20 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('transactions', {
+    await queryInterface.createTable('accountprofiles', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      accountNumber: {
+      customerNumber: {
         type: Sequelize.INTEGER,
-        field: 'account_number',
+        field: 'customer_number',
         references: {
-          model: 'checkings',
-          key: 'account_number'
+          model: 'customers',
+          key: 'id'
         }
-      },
-      location: {
-        type: Sequelize.STRING
-      },
-      amount: {
-        type: Sequelize.DECIMAL(10, 2),
-        defaultValue: 0.00
-      },
-      interaction: {
-        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
@@ -41,6 +31,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('transactions');
+    await queryInterface.dropTable('accountprofiles');
   }
 };

@@ -10,30 +10,28 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Checking.belongsTo(models.Customer, {
-        foreignKey: 'customer_number',
+      Checking.belongsTo(models.AccountProfile, {
+        foreignKey: 'profile_number',
         onDelete: 'CASCADE',
-        onUpdate: 'CASCADE'
-      })
-      Checking.hasMany(models.Transactions, {
-        foreignKey: 'account_number',
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE'
+        onUpdate:'CASCADE'
       })
     }
   };
   Checking.init({
-    customerNumber: {
+    profileNumber: { 
       type: DataTypes.INTEGER,
-      field: 'customer_number',
+      field: 'profile_number',
       references: {
-        model: 'customers',
+        model: 'accountprofiles',
         key: 'id'
       }
     },
-    accountType: DataTypes.INTEGER,
-    balance: DataTypes.DECIMAL(10,2),
-    accountNumber: DataTypes.INTEGER,
+    checkingNumber: {
+      type: DataTypes.INTEGER,
+      field: 'checking_number',
+      primaryKey: true,
+    },
+    balance: DataTypes.DECIMAL(10,2)
   }, {
     sequelize,
     modelName: 'Checking',

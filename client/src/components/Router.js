@@ -5,6 +5,7 @@ import NewTeller from '../Pages/NewTeller'
 import CustomerInfo from '../Pages/CustomerInfo'
 import Withdraw from '../Pages/Withdraw'
 import SignInPage from '../Pages/SignInPage'
+import Deposit from '../Pages/Deposit'
 
 const Router = () => {
 
@@ -38,6 +39,11 @@ const Router = () => {
                     exact
                     path="/withdraw"
                     component={(props) => <Withdraw {...props} />}
+                />
+                <Route
+                    exact
+                    path="/deposit"
+                    component={(props) => <Deposit {...props} />}
                 />
             </Switch>
         </main>
