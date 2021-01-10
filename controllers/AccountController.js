@@ -11,7 +11,25 @@ const UpdateAccountBalance = async (req, res) => {
             where:{
                 customer_number: customerNumber
             },
-            include: Checking
+            include: [
+                {
+                    model:Checking,
+                    attributes: ['balance', 'checking_number'],
+                    where:{
+                        checking_number: req.body.accountNumber
+                    },
+                    required: false
+                },
+                {
+                    model:Saving,
+                    attributes: ['balance', 'saving_number'],
+                    where:{
+                        saving_number: req.body.accountNumber
+                    },
+                    required: false
+                }
+            ],
+            // include: Saving
         })
         res.send(customer)
     } catch (error) {

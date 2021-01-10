@@ -20,6 +20,13 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
       })
+
+      AccountProfile.hasMany(models.Saving, {
+        foreignKey: 'profile_number',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
+      })
+
     }
   };
   AccountProfile.init({
