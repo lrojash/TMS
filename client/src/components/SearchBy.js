@@ -41,14 +41,17 @@ const SearchBy = (props) => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         let customerId = props.customerState.searchTerm
-        console.log('inisde submit 1: ', customerId)
         try {
             const response1 = await __GetCustomer({ customerId })
-            const response2 = await __GetCustomerAccounts({ customerId })
-
-            props.addCustomer(response1)
-            props.setAccounts(response2)
-            // props.history.push('/customerInfo')
+            if (response1) {
+                const response2 = await __GetCustomerAccounts({ customerId })
+                props.addCustomer(response1)
+                props.setAccounts(response2)
+                props.history.push('/customerInfo')
+            }
+            else {
+                alert("Customer Does Not Exist.\n Try Again.")
+            }
         } catch (error) {
             throw error
         }
@@ -64,10 +67,15 @@ const SearchBy = (props) => {
             let dob = props.customerState.dob
 
             const response1 = await __GetCustomer({ firstName, lastName, dob })
-            const response2 = await __GetCustomerAccounts({ customerId: response1.id})
-
-            props.addCustomer(response1)
-            props.setAccounts(response2)
+            if (response1) {
+                const response2 = await __GetCustomerAccounts({ customerId: response1.id })
+                props.addCustomer(response1)
+                props.setAccounts(response2)
+                props.history.push('customerInfo')
+            }
+            else {
+                alert("Customer Does Not Exist.\n Try Again.")
+            }
         } catch (error) {
             throw error
         }

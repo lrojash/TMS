@@ -19,7 +19,6 @@ const CustomerInfo = (props) => {
             <div className="customer-card">
                 <CustomerCard {...props} />
             </div>
-
         </div>
     )
 }

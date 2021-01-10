@@ -36,9 +36,16 @@ const useStyles = makeStyles({
 
 export default function AccountView(props) {
 
-    let accounts = [props.accountState.accounts[0].checkingAccounts[0], props.accountState.accounts[0].savingsAccounts[0]]
+    // let accounts = [props.accountState.accounts[0].checkingAccounts[0], props.accountState.accounts[0].savingsAccounts[0]]
+    console.log('inside account view: ', props.accountState.accounts[0][0].Checkings)
+    let checkingAccounts = props.accountState.accounts[0][0].Checkings
+    let savingAccounts = props.accountState.accounts[0][0].Savings
 
+    let accounts = [...checkingAccounts, ...savingAccounts]
 
+    console.log('after setting checking: ', checkingAccounts)
+    console.log('after setting savings: ', savingAccounts)
+    console.log('after comibing: ', accounts)
     const classes = useStyles();
 
     return (
@@ -52,10 +59,10 @@ export default function AccountView(props) {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {accounts.map((account) => (
-                            <StyledTableRow key={account.accountType}>
+                        {accounts.map((account, index) => (
+                            <StyledTableRow key={index}>
                                 <StyledTableCell component="th" scope="row">
-                                    {account.accountType}
+                                    {account.type}
                                 </StyledTableCell>
                                 <StyledTableCell align="right">${account.balance}</StyledTableCell>
                             </StyledTableRow>
@@ -63,7 +70,6 @@ export default function AccountView(props) {
                     </TableBody>
                 </Table>
             </TableContainer>
-
         </div>
 
     );

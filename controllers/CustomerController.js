@@ -22,8 +22,8 @@ const GetCustomer = async (req, res) => {
             console.log('after deconstruction: ', firstName)
             let customer = await Customer.findOne({
                 where: {
-                    // first_name: firstName,
-                    // last_name: lastName,
+                    first_name: firstName,
+                    last_name: lastName,
                     date_of_birth: dob
                 }
             })
@@ -47,12 +47,12 @@ const GetCustomerAccount = async (req, res) => {
             include: [
                 {
                     model: Checking,
-                    attributes: ['balance', 'checking_number'],
+                    attributes: ['balance', 'checking_number', 'type'],
                     required: false
                 },
                 {
                     model: Saving,
-                    attributes: ['balance', 'saving_number'],
+                    attributes: ['balance', 'saving_number', 'type'],
                     required: false
                 }
             ],
