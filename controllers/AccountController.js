@@ -4,86 +4,89 @@ const { Op, literal, fn, col } = require('sequelize')
 const UpdateAccountBalance = async (req, res) => {
 
     let customerNumber = req.body.customerNumber
-    console.log(customerNumber)
-    try {
+    let accountNumber = req.body.accountNumber
+    let action = req.body.action
+    let accountType = req.body.accountType
+    let amount = parseFloat(req.body.amount)
 
+    try {
         let customer = await AccountProfile.findAll({
-            where:{
+            where: {
                 customer_number: customerNumber
             },
             include: [
                 {
-                    model:Checking,
+                    model: Checking,
                     attributes: ['balance', 'checking_number'],
-                    where:{
-                        checking_number: req.body.accountNumber
+                    where: {
+                        checking_number: accountNumber
                     },
                     required: false
                 },
                 {
-                    model:Saving,
+                    model: Saving,
                     attributes: ['balance', 'saving_number'],
-                    where:{
-                        saving_number: req.body.accountNumber
+                    where: {
+                        saving_number: accountNumber
                     },
                     required: false
                 }
             ],
-            // include: Saving
         })
-        res.send(customer)
+
+        if (action === "deposit") {
+            if (accountType === "Checking") {
+                let checkingBalance = customer[0].dataValues.Checkings[0].dataValues.balance
+                let newBalance = parseFloat(checkingBalance) + amount
+                let accountUpdate = await Checking.update({ balance: newBalance }, {
+                    where: {
+                        checking_number: accountNumber
+                    },
+                    returning: true
+                })
+                res.send(accountUpdate)
+
+            }
+            else {
+                let savingBalance = customer[0].dataValues.Savings[0].dataValues.balance
+                let newBalance2 = parseFloat(savingBalance) + amount
+                let accountUpdate2 = await Saving.update({ balance: newBalance2 }, {
+                    where: {
+                        saving_number: accountNumber
+                    },
+                    returning: true
+                })
+                res.send(accountUpdate2)
+            }
+        }
+        else {
+            if (accountType === "Checking") {
+                let checkingBalance = customer[0].dataValues.Checkings[0].dataValues.balance
+                let newBalance = parseFloat(checkingBalance) - amount
+                let accountUpdate = await Checking.update({ balance: newBalance }, {
+                    where: {
+                        checking_number: accountNumber
+                    },
+                    returning: true
+                })
+                res.send(accountUpdate)
+
+            }
+            else {
+                let savingBalance = customer[0].dataValues.Savings[0].dataValues.balance
+                let newBalance2 = parseFloat(savingBalance) - amount
+                let accountUpdate2 = await Saving.update({ balance: newBalance2 }, {
+                    where: {
+                        saving_number: accountNumber
+                    },
+                    returning: true
+                })
+                res.send(accountUpdate2)
+            }
+        }
     } catch (error) {
         throw error
     }
-
-    // try {
-    //     let account = await Accounts.findOne({
-    //         where: {
-    //             customer_number: customerNumber,
-    //         },
-    //     })
-    //     let accountBalance = account.balance
-
-    //     if (acctionType = "withdraw") {
-    //         accountBalance = accountBalance - amount
-    //         let updatedAccount = await accountType.update({ balance: balance }, { where: { account_number: accountNumber }, returning: true })
-    //         res.send(updatedAccount)
-    //     }
-
-    // if (action === "withdraw") {
-    //     if (accountType === "checking") {
-    //         let checkingAccount = await Checking.findOne({
-    //             where: {
-    //                 account_number: accountNumber
-    //             }
-    //         })
-    //         let currentBalance = checkingAccount.balance
-    //         let balance = currentBalance - amount
-
-    //         let updatedCheckingAccount = await Checking.update({ balance: balance }, { where: { account_number: accountNumber }, returning: true })
-
-    //         res.send(updatedCheckingAccount)
-    //     }
-
-    //     else {
-    //         let savingAccount = await Saving.findOne({
-    //             where: {
-    //                 account_number: accountNumber
-    //             }
-    //         })
-    //         let newBalance = savingAccount.balance - amount
-    //         let updatedSavingAccount = await Saving.update({ balance: newBalance }, { where: { account_number: accountNumber }, returning: true })
-
-    //         res.send(updatedSavingAccount)
-
-    //     }
-    // }
-    // else {
-
-    // }
-    // } catch (error) {
-    //     throw error
-    // }
 }
 
 module.exports = {
