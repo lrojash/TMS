@@ -5,11 +5,10 @@ const { Op, literal, fn, col } = require('sequelize')
 
 const GetCustomer = async (req, res) => {
 
-    console.log('inside controller', req.body.customerInfo.customerId)
+    console.log('inside controller', req.body)
     try {
-        if (req.body.customerInfo.customerId) {
-            let customerId = req.body.customerInfo.customerId
-            console.log('after seeting it', customerId)
+        if (req.body.customerId) {
+            let customerId = req.body.customerId
             let customer = await Customer.findOne({
                 where: {
                     id: customerId
@@ -20,13 +19,15 @@ const GetCustomer = async (req, res) => {
         else {
             let { body } = req
             const { firstName, lastName, dob } = body
+            console.log('after deconstruction: ', firstName)
             let customer = await Customer.findOne({
                 where: {
-                    firstName: firstName,
-                    lastName: lastName,
-                    dateOfBirth: dob
+                    // first_name: firstName,
+                    // last_name: lastName,
+                    date_of_birth: dob
                 }
             })
+            console.log('after setting it', customer)
             return res.send(customer)
         }
     } catch (error) {
@@ -36,8 +37,9 @@ const GetCustomer = async (req, res) => {
 
 const GetCustomerAccount = async (req, res) => {
     console.log('inside get customer controller', req.body)
-    let customerNumber = req.body.customerInfo.customerId
+
     try {
+        let customerNumber = req.body.customerId
         let accounts = await AccountProfile.findAll({
             where: {
                 customer_number: customerNumber
@@ -56,10 +58,13 @@ const GetCustomerAccount = async (req, res) => {
             ],
         })
         return res.send(accounts)
+
     } catch (error) {
         throw error
     }
 }
+
+
 module.exports = {
     GetCustomer,
     GetCustomerAccount,

@@ -16,35 +16,39 @@ import { SetAccounts } from '../store/actions/AccountActions'
 
 
 const SearchBy = (props) => {
-    
+
 
     const handleChange = (e) => {
         // props.search(e.target.value)
         console.log(e.target.name)
-        switch(e.target.name) {
+        switch (e.target.name) {
             case "account":
                 props.search(e.target.value)
+                return
             case "firstName":
                 props.setFirstName(e.target.value)
+                return
             case "lastName":
                 props.setLastName(e.target.value)
+                return
             case "dob":
                 props.setDob(e.target.value)
+                return
         }
     }
 
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log('inside submit', props)
-        let customerInfo = { customerId: props.customerState.searchTerm }
+        let customerId = props.customerState.searchTerm
+        console.log('inisde submit 1: ', customerId)
         try {
-            const response1 = await __GetCustomer({ customerInfo })
-            const response2 = await __GetCustomerAccounts({ customerInfo })
+            const response1 = await __GetCustomer({ customerId })
+            const response2 = await __GetCustomerAccounts({ customerId })
 
             props.addCustomer(response1)
             props.setAccounts(response2)
-            props.history.push('/customerInfo')
+            // props.history.push('/customerInfo')
         } catch (error) {
             throw error
         }
@@ -52,7 +56,21 @@ const SearchBy = (props) => {
 
     const handleSubmit2 = async (e) => {
         e.preventDefault()
-        console.log('inside submit two')
+        let customerInfo = props.customerState
+        console.log('inside submit 2: ', customerInfo)
+        try {
+            let firstName = props.customerState.firstName
+            let lastName = props.customerState.lastName
+            let dob = props.customerState.dob
+
+            const response1 = await __GetCustomer({ firstName, lastName, dob })
+            const response2 = await __GetCustomerAccounts({ customerId: response1.id})
+
+            props.addCustomer(response1)
+            props.setAccounts(response2)
+        } catch (error) {
+            throw error
+        }
     }
 
     return (
