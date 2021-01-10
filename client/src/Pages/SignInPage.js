@@ -40,16 +40,15 @@ const SingInpage = (props) => {
                     placeholder="USER ID"
                     name="userId"
                     type="userId"
-
                     onChange={handleChange}
                 />
-                <TextInput
-                    placeholder="Password"
-                    name="text"
-                    type="text"
-
+                <input
+                    placeholder="PASSWORD"
+                    name="PASSWORD"
+                    type="password"
                     onChange={handleChange}
                 />
+
                 <button className="sign-in-button">
                     LOGIN
                 </button>

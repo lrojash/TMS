@@ -44,7 +44,7 @@ const UpdateAccountBalance = async (req, res) => {
                     },
                     returning: true
                 })
-                res.send(accountUpdate)
+                return res.send(accountUpdate)
 
             }
             else {
@@ -56,7 +56,7 @@ const UpdateAccountBalance = async (req, res) => {
                     },
                     returning: true
                 })
-                res.send(accountUpdate2)
+                return res.send(accountUpdate2)
             }
         }
         else {
@@ -69,7 +69,7 @@ const UpdateAccountBalance = async (req, res) => {
                     },
                     returning: true
                 })
-                res.send(accountUpdate)
+                return res.send(accountUpdate)
 
             }
             else {
@@ -81,7 +81,7 @@ const UpdateAccountBalance = async (req, res) => {
                     },
                     returning: true
                 })
-                res.send(accountUpdate2)
+                return res.send(accountUpdate2)
             }
         }
     } catch (error) {

@@ -1,6 +1,9 @@
 export const ADD_CUSTOMER = 'ADD_CUSTOMER'
 export const ADD_ACCOUNT = 'ADD_ACCOUNT'
 export const SEARCH_TERM = 'SEARCH_TERM'
+export const ADD_FIRST_NAME = 'ADD_FIRST_NAME'
+export const ADD_LAST_NAME = 'ADD_LAST_NAME'
+export const ADD_DOB = 'ADD_DOB'
 
 
 // Teller Types

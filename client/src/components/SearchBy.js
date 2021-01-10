@@ -3,13 +3,37 @@ import { connect } from 'react-redux'
 import TextInput from './TextInput'
 import { __GetCustomer, __GetCustomerAccounts } from '../services/CustomerServices'
 
-import { AddCustomer, AddAccount, SearchTerm } from '../store/actions/CustomerActions'
+import {
+    AddCustomer,
+    AddAccount,
+    SearchTerm,
+    AddFirstName,
+    AddLastName,
+    AddDob
+} from '../store/actions/CustomerActions'
 import { SetAccounts } from '../store/actions/AccountActions'
+
+
+
 const SearchBy = (props) => {
-    console.log('inside search: ', props)
+    
+
     const handleChange = (e) => {
-        props.search(e.target.value)
+        // props.search(e.target.value)
+        console.log(e.target.name)
+        switch(e.target.name) {
+            case "account":
+                props.search(e.target.value)
+            case "firstName":
+                props.setFirstName(e.target.value)
+            case "lastName":
+                props.setLastName(e.target.value)
+            case "dob":
+                props.setDob(e.target.value)
+        }
     }
+
+
     const handleSubmit = async (e) => {
         e.preventDefault()
         console.log('inside submit', props)
@@ -17,7 +41,7 @@ const SearchBy = (props) => {
         try {
             const response1 = await __GetCustomer({ customerInfo })
             const response2 = await __GetCustomerAccounts({ customerInfo })
-            
+
             props.addCustomer(response1)
             props.setAccounts(response2)
             props.history.push('/customerInfo')
@@ -26,10 +50,10 @@ const SearchBy = (props) => {
         }
     }
 
-    // const handleSubmit2 = async (e) => {
-    //     e.preventDefault()
-    //     console.log(props)
-    // }
+    const handleSubmit2 = async (e) => {
+        e.preventDefault()
+        console.log('inside submit two')
+    }
 
     return (
         <div className="SearchBy-page">
@@ -46,7 +70,7 @@ const SearchBy = (props) => {
                     Search
                 </button>
             </form>
-            {/* <form className="search-form-two" onSubmit={handleSubmit2}>
+            <form className="search-form-two" onSubmit={handleSubmit2}>
                 <TextInput
                     placeholder="FIRST NAME"
                     name="firstName"
@@ -61,7 +85,7 @@ const SearchBy = (props) => {
                     onChange={handleChange}
                 />
                 <TextInput
-                    placeholder="DATE OF BIRTH"
+                    placeholder="DOB (mm-dd-yyyy)"
                     name="dob"
                     type="dob"
                     onChange={handleChange}
@@ -69,7 +93,7 @@ const SearchBy = (props) => {
                 <button className="search-button">
                     Search
                 </button>
-            </form> */}
+            </form>
         </div>
     )
 }
@@ -85,8 +109,10 @@ const mapActionsToProps = (dispatch) => {
     return {
         search: (term) => dispatch(SearchTerm(term)),
         addCustomer: (customer) => dispatch(AddCustomer(customer)),
-        setAccounts: (accounts) => dispatch(SetAccounts(accounts))
-
+        setAccounts: (accounts) => dispatch(SetAccounts(accounts)),
+        setFirstName: (name) => dispatch(AddFirstName(name)),
+        setLastName: (name) => dispatch(AddLastName(name)),
+        setDob: (dob) => dispatch(AddDob(dob)),
     }
 }
 

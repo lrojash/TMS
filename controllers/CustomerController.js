@@ -1,13 +1,13 @@
-const { Customer, Checking, Saving } = require('../models')
+const { Customer, Checking, Saving, AccountProfile } = require('../models')
 
 const { Op, literal, fn, col } = require('sequelize')
 
 
 const GetCustomer = async (req, res) => {
 
-    console.log('inside controller', req.body.customerInfo)
+    console.log('inside controller', req.body.customerInfo.customerId)
     try {
-        if (req.body.customerInfo) {
+        if (req.body.customerInfo.customerId) {
             let customerId = req.body.customerInfo.customerId
             console.log('after seeting it', customerId)
             let customer = await Customer.findOne({
@@ -36,26 +36,26 @@ const GetCustomer = async (req, res) => {
 
 const GetCustomerAccount = async (req, res) => {
     console.log('inside get customer controller', req.body)
+    let customerNumber = req.body.customerInfo.customerId
     try {
-        let customerId = req.body.customerInfo.customerId
-        let checkingAccounts = await Checking.findAll({
+        let accounts = await AccountProfile.findAll({
             where: {
-                customer_number: customerId
-            }
+                customer_number: customerNumber
+            },
+            include: [
+                {
+                    model: Checking,
+                    attributes: ['balance', 'checking_number'],
+                    required: false
+                },
+                {
+                    model: Saving,
+                    attributes: ['balance', 'saving_number'],
+                    required: false
+                }
+            ],
         })
-        let savingsAccounts = await Saving.findAll({
-            where: {
-                customer_number: customerId
-            }
-        })
-
-        let accounts = {
-            checkingAccounts,
-            savingsAccounts
-        }
-        console.log(savingsAccounts)
-        res.send(accounts)
-
+        return res.send(accounts)
     } catch (error) {
         throw error
     }
