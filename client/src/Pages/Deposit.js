@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import TextInput from '../components/TextInput'
 import CustomerNavBar from '../components/CustomerNavBar'
-import { __Update } from '../services/AccountServices'
+import { __Update, __GetAccount } from '../services/AccountServices'
 
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -26,34 +26,25 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Deposit = (props) => {
+const Withdraw = (props) => {
+
+    let checkingAccounts = props.accountState.accounts[0][0].Checkings
+    let savingAccounts = props.accountState.accounts[0][0].Savings
+    let accounts = [...checkingAccounts, ...savingAccounts]
+
 
     const classes = useStyles();
-
     const [open, setOpen] = React.useState(false);
-
-    const accounts = [props.accountState.accounts[0].checkingAccounts[0], props.accountState.accounts[0].savingsAccounts[0]]
-
-    const getAccountInfo = (acctNum) => {
-        let acctType = ''
-        accounts.forEach(account => {
-            if (acctNum === account.accountNumber) {
-                acctType = account.accountType
-            }
-        })
-        return acctType
-    }
 
 
     const handleChange = (e) => {
         e.preventDefault()
+        console.log('inside handle change: ', e.target.value)
         if (e.target.name === 'amount') {
             props.setAmount(e.target.value)
         }
         else {
             let accountNumber = e.target.value
-            let accountType = getAccountInfo(accountNumber)
-            props.setType(accountType)
             props.setAcct(accountNumber)
         }
     };
@@ -68,12 +59,21 @@ const Deposit = (props) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        let accountNumber = props.accountState.accountFrom
-        let accountType = props.accountState.accountTypeFrom
+        console.log('inside the submit: ', props.accountState)
         let amount = props.accountState.amount
+        let accountNumber = props.accountState.accountFrom
         let action = "deposit"
+        let customerNumber = props.customerState.searchTerm
+
         try {
-            let action = await __Update({ accountNumber, accountType, amount })
+            let account = await __GetAccount({ accountNumber, customerNumber })
+            let accountType = props.setType(account)
+            let accountAction = await __Update({ amount, accountNumber, action, customerNumber, accountType })
+            console.log('after await: ', accountAction)
+            if (accountAction) {
+                alert("Deposit Successful")
+                props.history.push('/customerInfo')
+            }
         } catch (error) {
             throw error
         }
@@ -106,8 +106,13 @@ const Deposit = (props) => {
                             <em>None</em>
                         </MenuItem>
                         {
-                            accounts.map((account, index) => (
-                                <MenuItem key={index} value={account.accountNumber}>{account.accountType}</MenuItem>
+                            checkingAccounts.map((account, index) => (
+                                <MenuItem key={index} value={account.checking_number}>{account.type}-{account.balance}</MenuItem>
+                            ))
+                        }
+                        {
+                            savingAccounts.map((account, index) => (
+                                <MenuItem key={index} value={account.saving_number}>{account.type}-{account.balance}</MenuItem>
                             ))
                         }
                     </Select>
@@ -141,4 +146,4 @@ const mapActionsToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapActionsToProps)(Deposit)
+export default connect(mapStateToProps, mapActionsToProps)(Withdraw)

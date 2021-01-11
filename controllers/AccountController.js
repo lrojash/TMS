@@ -8,7 +8,7 @@ const UpdateAccountBalance = async (req, res) => {
     let action = req.body.action
     let accountType = req.body.accountType.payload
     let amount = parseFloat(req.body.amount)
-    console.log('pre test: ', accountType)
+    console.log('pre test: ', action)
     try {
         let customer = await AccountProfile.findAll({
             where: {
@@ -35,7 +35,7 @@ const UpdateAccountBalance = async (req, res) => {
         })
 
         if (action === "deposit") {
-            if (accountType === "CHECKING") {
+            if (accountType === "CHECKINGS") {
                 let checkingBalance = customer[0].dataValues.Checkings[0].dataValues.balance
                 let newBalance = parseFloat(checkingBalance) + amount
                 let accountUpdate = await Checking.update({ balance: newBalance }, {
@@ -44,7 +44,7 @@ const UpdateAccountBalance = async (req, res) => {
                     },
                     returning: true
                 })
-                return res.send(true)
+                res.send(accountUpdate)
 
             }
             else {
@@ -56,7 +56,7 @@ const UpdateAccountBalance = async (req, res) => {
                     },
                     returning: true
                 })
-                return res.send(true)
+                 res.send(accountUpdate2)
             }
         }
         else {
@@ -82,7 +82,7 @@ const UpdateAccountBalance = async (req, res) => {
                     returning: true
                 })
                 // console.log('after update: ', accountUpdate2[1][0])
-                res.send(true)
+                res.send(accountUpdate2)
             }
         }
     } catch (error) {

@@ -72,6 +72,7 @@ const Withdraw = (props) => {
             console.log('after await: ',accountAction)
             if(accountAction) {
                 alert("Withdraw Successful")
+                props.history.push('/customerInfo')
             }
         } catch (error) {
             throw error

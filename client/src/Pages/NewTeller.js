@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import TextInput from '../components/TextInput'
 import NavBar from '../components/NavBar'
 import RadioButtons from '../components/RadioButtons'
+import BalanceSheet from '../components/BalanceSheet'
+import PopUp from '../components/PopUp'
 import { __CreateTeller } from '../services/TellerServices'
 
 import {
@@ -66,6 +68,7 @@ const NewTeller = (props) => {
                     CREATE
                 </button>
             </form>
+            <PopUp />
         </div>
         // <div>
         //     <h1>testing</h1>

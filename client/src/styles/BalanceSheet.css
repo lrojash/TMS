@@ -1,0 +1,4 @@
+.balance-sheet-container {
+    display: flex;
+    flex-direction: row;
+}
