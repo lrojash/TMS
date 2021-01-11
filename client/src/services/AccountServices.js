@@ -3,7 +3,8 @@ import ApiClient from './ApiClient'
 export const __Update = async (customerData) => {
     console.log('inside services', customerData)
     try {
-        const res = ApiClient.put('/account/action', customerData)
+        const res = await ApiClient.put('/account/action', customerData)
+        console.log('after put in services: ', res)
         return res.data
     } catch (error) {
         throw error
@@ -12,7 +13,7 @@ export const __Update = async (customerData) => {
 
 export const __Deposit = async (customerData) => {
     try {
-        const res = ApiClient.put('/account/deposit', customerData)
+        const res = await ApiClient.put('/account/deposit', customerData)
         return res.data
     } catch (error) {
         throw error

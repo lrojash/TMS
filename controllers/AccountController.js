@@ -6,9 +6,9 @@ const UpdateAccountBalance = async (req, res) => {
     let customerNumber = req.body.customerNumber
     let accountNumber = req.body.accountNumber
     let action = req.body.action
-    let accountType = req.body.accountType
+    let accountType = req.body.accountType.payload
     let amount = parseFloat(req.body.amount)
-
+    console.log('pre test: ', accountType)
     try {
         let customer = await AccountProfile.findAll({
             where: {
@@ -44,7 +44,7 @@ const UpdateAccountBalance = async (req, res) => {
                     },
                     returning: true
                 })
-                return res.send(accountUpdate)
+                return res.send(true)
 
             }
             else {
@@ -56,11 +56,11 @@ const UpdateAccountBalance = async (req, res) => {
                     },
                     returning: true
                 })
-                return res.send(accountUpdate2)
+                return res.send(true)
             }
         }
         else {
-            if (accountType === "SAVING") {
+            if (accountType === "CHECKINGS") {
                 let checkingBalance = customer[0].dataValues.Checkings[0].dataValues.balance
                 let newBalance = parseFloat(checkingBalance) - amount
                 let accountUpdate = await Checking.update({ balance: newBalance }, {
@@ -69,7 +69,7 @@ const UpdateAccountBalance = async (req, res) => {
                     },
                     returning: true
                 })
-                return res.send(accountUpdate)
+                res.send(accountUpdate)
 
             }
             else {
@@ -81,7 +81,8 @@ const UpdateAccountBalance = async (req, res) => {
                     },
                     returning: true
                 })
-                return res.send(accountUpdate2)
+                // console.log('after update: ', accountUpdate2[1][0])
+                res.send(true)
             }
         }
     } catch (error) {
@@ -116,9 +117,9 @@ const GetAccount = async (req, res) => {
                 }
             ],
         })
-        console.log('after search: ',account[0].dataValues.Savings)
+        console.log('after search: ', account[0].dataValues.Savings)
         let type = account[0].dataValues.Savings
-        if ( type.length === 0 ) {
+        if (type.length === 0) {
             return res.send('CHECKINGS')
         }
         else {

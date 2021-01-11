@@ -66,10 +66,13 @@ const Withdraw = (props) => {
         let customerNumber = props.customerState.searchTerm
 
         try {
-            let type = await __GetAccount({ accountNumber, customerNumber })
-            console.log('after type: ', type[0])
-            props.setType(type)
-            console.log('after setting request', props.accountState)
+            let account = await __GetAccount({ accountNumber, customerNumber })
+            let accountType = props.setType(account)
+            let accountAction = await __Update({ amount, accountNumber, action, customerNumber, accountType })
+            console.log('after await: ',accountAction)
+            if(accountAction) {
+                alert("Withdraw Successful")
+            }
         } catch (error) {
             throw error
         }
