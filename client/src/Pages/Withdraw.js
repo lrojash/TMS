@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import TextInput from '../components/TextInput'
 import CustomerNavBar from '../components/CustomerNavBar'
-import { __Update } from '../services/AccountServices'
+import { __Update, __GetAccount } from '../services/AccountServices'
 
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -28,32 +28,23 @@ const useStyles = makeStyles((theme) => ({
 
 const Withdraw = (props) => {
 
+    let checkingAccounts = props.accountState.accounts[0][0].Checkings
+    let savingAccounts = props.accountState.accounts[0][0].Savings
+    let accounts = [...checkingAccounts, ...savingAccounts]
+
+
     const classes = useStyles();
-
     const [open, setOpen] = React.useState(false);
-
-    const accounts = [props.accountState.accounts[0].checkingAccounts[0], props.accountState.accounts[0].savingsAccounts[0]]
-
-    const getAccountInfo = (acctNum) => {
-        let acctType = ''
-        accounts.forEach(account => {
-            if (acctNum === account.accountNumber) {
-                acctType = account.accountType
-            }
-        })
-        return acctType
-    }
 
 
     const handleChange = (e) => {
         e.preventDefault()
+        console.log('inside handle change: ', e.target.value)
         if (e.target.name === 'amount') {
             props.setAmount(e.target.value)
         }
         else {
             let accountNumber = e.target.value
-            let accountType = getAccountInfo(accountNumber)
-            props.setType(accountType)
             props.setAcct(accountNumber)
         }
     };
@@ -68,14 +59,17 @@ const Withdraw = (props) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        let accountNumber = props.accountState.accountFrom
-        let accountType = props.accountState.accountTypeFrom
+        console.log('inside the submit: ', props.accountState)
         let amount = props.accountState.amount
-        let actionType = "withdraw"
-        let customerNumber = props.customerState.customerNumber
+        let accountNumber = props.accountState.accountFrom
+        let action = "withdraw"
+        let customerNumber = props.customerState.searchTerm
 
         try {
-            let action = await __Update({ accountNumber, accountType, amount, actionType, customerNumber })
+            let type = await __GetAccount({ accountNumber, customerNumber })
+            console.log('after type: ', type[0])
+            props.setType(type)
+            console.log('after setting request', props.accountState)
         } catch (error) {
             throw error
         }
@@ -89,6 +83,7 @@ const Withdraw = (props) => {
     return (
         <div>
             <CustomerNavBar {...props} />
+            <h1>works</h1>
             <Button className={classes.button} onClick={handleOpen}>
                 Select Account
             </Button>
@@ -108,8 +103,13 @@ const Withdraw = (props) => {
                             <em>None</em>
                         </MenuItem>
                         {
-                            accounts.map((account, index) => (
-                                <MenuItem key={index} value={account.accountNumber}>{account.accountType}</MenuItem>
+                            checkingAccounts.map((account, index) => (
+                                <MenuItem key={index} value={account.checking_number}>{account.type}-{account.balance}</MenuItem>
+                            ))
+                        }
+                        {
+                            savingAccounts.map((account, index) => (
+                                <MenuItem key={index} value={account.saving_number}>{account.type}-{account.balance}</MenuItem>
                             ))
                         }
                     </Select>

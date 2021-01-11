@@ -35,7 +35,7 @@ const UpdateAccountBalance = async (req, res) => {
         })
 
         if (action === "deposit") {
-            if (accountType === "Checking") {
+            if (accountType === "CHECKING") {
                 let checkingBalance = customer[0].dataValues.Checkings[0].dataValues.balance
                 let newBalance = parseFloat(checkingBalance) + amount
                 let accountUpdate = await Checking.update({ balance: newBalance }, {
@@ -60,7 +60,7 @@ const UpdateAccountBalance = async (req, res) => {
             }
         }
         else {
-            if (accountType === "Checking") {
+            if (accountType === "SAVING") {
                 let checkingBalance = customer[0].dataValues.Checkings[0].dataValues.balance
                 let newBalance = parseFloat(checkingBalance) - amount
                 let accountUpdate = await Checking.update({ balance: newBalance }, {
@@ -89,6 +89,47 @@ const UpdateAccountBalance = async (req, res) => {
     }
 }
 
+const GetAccount = async (req, res) => {
+    let accountNumber = req.body.accountNumber
+    let customerNumber = req.body.customerNumber
+    try {
+        let account = await AccountProfile.findAll({
+            where: {
+                customer_number: customerNumber
+            },
+            include: [
+                {
+                    model: Checking,
+                    attributes: ['type'],
+                    where: {
+                        checking_number: accountNumber
+                    },
+                    required: false
+                },
+                {
+                    model: Saving,
+                    attributes: ['type'],
+                    where: {
+                        saving_number: accountNumber
+                    },
+                    required: false
+                }
+            ],
+        })
+        console.log('after search: ',account[0].dataValues.Savings)
+        let type = account[0].dataValues.Savings
+        if ( type.length === 0 ) {
+            return res.send('CHECKINGS')
+        }
+        else {
+            return res.send('SAVINGS')
+        }
+    } catch (error) {
+        throw error
+    }
+}
+
 module.exports = {
     UpdateAccountBalance,
+    GetAccount
 }

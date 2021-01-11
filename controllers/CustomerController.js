@@ -36,7 +36,7 @@ const GetCustomer = async (req, res) => {
 }
 
 const GetCustomerAccount = async (req, res) => {
-    console.log('inside get customer controller', req.body)
+    console.log('inside get customer controller', req)
 
     try {
         let customerNumber = req.body.customerId
