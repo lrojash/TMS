@@ -50,8 +50,31 @@ const CreateTeller = async(req, res) => {
         throw error 
     }
 }
+const BalanceTeller = async(req,res) => {
+    let drawer = parseFloat(req.body.drawer).toFixed(2)
+    try {
+        const teller = await Tellers.findOne({
+            where: {
+                user_id: req.body.userId
+            }
+        })
+        console.log('after; ', teller.drawer)
+        console.log('data sent; ', drawer)
+        if (teller.drawer){
+            if(drawer === teller.drawer) {
+                res.send(true)
+            }
+            else {
+                res.send(false)
+            }
+        }
+    } catch(error) {
+        throw error 
+    }
+}
 
 module.exports = {
     LoginTeller,
-    CreateTeller
+    CreateTeller,
+    BalanceTeller
 }

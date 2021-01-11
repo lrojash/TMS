@@ -19,8 +19,7 @@ const SearchBy = (props) => {
 
 
     const handleChange = (e) => {
-        // props.search(e.target.value)
-        console.log(e.target.name)
+
         switch (e.target.name) {
             case "account":
                 props.search(e.target.value)

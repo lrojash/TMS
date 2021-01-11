@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import {connect} from 'react-redux'
-import TextInput from './TextInput'
+import TextInput from '../components/TextInput'
 import '../styles/BalanceSheet.css'
 import { setTellerDrawer } from '../store/actions/TellerActions'
 
-const BalanceSheet = (props) => {
+const Drawer = (props) => {
     const [penny, setPenny] = useState(0)
     const [nickel, setNickel] = useState(0)
     const [dime, setDime] = useState(0)
@@ -29,8 +29,8 @@ const BalanceSheet = (props) => {
     }
 
     const handleClick = (e) => {
-        console.log('worked', props)
         props.createDrawer(total)
+        
     }
 
     return (
@@ -87,5 +87,5 @@ const mapActionsToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapActionsToProps)(BalanceSheet)
+export default connect(mapStateToProps, mapActionsToProps)(Drawer)
 

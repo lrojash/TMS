@@ -4,6 +4,7 @@ const { getToken, createToken, verifyToken } = require('../middleware/JwtHandler
 
 Router.post('/login', controller.LoginTeller)
 Router.post('/create', controller.CreateTeller)
+Router.post('/balance', controller.BalanceTeller)
 // Router.get('/session', getToken, verifyToken, controller.RefreshSession)
 
 module.exports = Router

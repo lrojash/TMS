@@ -5,9 +5,9 @@ import '../styles/Nav.css'
 
 
 const NavBar = (props) => {
-    // console.log('inside nav bar: ', props.tellerState.currentUser[0].admin)
+    console.log('inside nav bar: ', props.tellerState.currentUser[0].admin)
     let admin = props.tellerState.currentUser[0].admin
-    console.log('inside nav bar: ', admin)
+
 
     return admin ? (
         <div className="nav-bar">
@@ -18,7 +18,7 @@ const NavBar = (props) => {
     ) : (
             <div className="nav-bar">
                 <Tab label="Close Day" className="link" />
-                <Tab label="Drawer" className="link" />
+                <Tab to="/drawer" component={Link} label="Drawer" className="link" />
                 <Tab to="/" component={Link} label="Sign Out" className="link" />
             </div>
         )

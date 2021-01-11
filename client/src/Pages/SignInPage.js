@@ -10,7 +10,7 @@ import {
 import '../styles/Main.css'
 
 const SingInpage = (props) => {
-    console.log('inside sign in: ', props)
+    
     const handleChange = (e) => {
         if (e.target.name === "userId") {
             props.setTellerId(e.target.value)
