@@ -11,7 +11,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
-
+import '../styles/Action.css'
 
 import { SetAmount, SetAccountFrom, SetAccountTypeFrom } from '../store/actions/AccountActions'
 
@@ -87,46 +87,47 @@ const Withdraw = (props) => {
     return (
         <div>
             <CustomerNavBar {...props} />
-            <Button className={classes.button} onClick={handleOpen}>
-                Select Account
-            </Button>
-            <form className="withdraw-form" onSubmit={handleSubmit}>
-                <FormControl className={classes.formControl}>
-                    <InputLabel id="demo-controlled-open-select-label">Select</InputLabel>
-                    <Select
-                        labelId="demo-controlled-open-select-label"
-                        id="demo-controlled-open-select"
-                        open={open}
-                        onClose={handleClose}
-                        onOpen={handleOpen}
-                        // value={age}
+            <div className="action-form">
+                <h3 className="action-title">Select Account</h3>
+                <form className="withdraw-form" onSubmit={handleSubmit}>
+                    <FormControl className={classes.formControl}>
+                        <InputLabel id="demo-controlled-open-select-label">Select</InputLabel>
+                        <Select
+                            labelId="demo-controlled-open-select-label"
+                            id="demo-controlled-open-select"
+                            open={open}
+                            onClose={handleClose}
+                            onOpen={handleOpen}
+                            // value={age}
+                            onChange={handleChange}
+                        >
+                            <MenuItem value="">
+                                <em>None</em>
+                            </MenuItem>
+                            {
+                                checkingAccounts.map((account, index) => (
+                                    <MenuItem key={index} value={account.checking_number}>{account.type}-{account.balance}</MenuItem>
+                                ))
+                            }
+                            {
+                                savingAccounts.map((account, index) => (
+                                    <MenuItem key={index} value={account.saving_number}>{account.type}-{account.balance}</MenuItem>
+                                ))
+                            }
+                        </Select>
+                    </FormControl>
+                    <TextInput
+                        placeholder="AMOUNT"
+                        name="amount"
+                        type="amount"
                         onChange={handleChange}
-                    >
-                        <MenuItem value="">
-                            <em>None</em>
-                        </MenuItem>
-                        {
-                            checkingAccounts.map((account, index) => (
-                                <MenuItem key={index} value={account.checking_number}>{account.type}-{account.balance}</MenuItem>
-                            ))
-                        }
-                        {
-                            savingAccounts.map((account, index) => (
-                                <MenuItem key={index} value={account.saving_number}>{account.type}-{account.balance}</MenuItem>
-                            ))
-                        }
-                    </Select>
-                </FormControl>
-                <TextInput
-                    placeholder="AMOUNT"
-                    name="amount"
-                    type="amount"
-                    onChange={handleChange}
-                />
-                <button className="withdraw-submit">
-                    CONFIRM
+                    />
+                    <button className="withdraw-submit">
+                        CONFIRM
                  </button>
-            </form>
+                </form>
+
+            </div>
         </div>
     )
 }

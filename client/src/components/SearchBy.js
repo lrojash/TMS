@@ -12,7 +12,7 @@ import {
     AddDob
 } from '../store/actions/CustomerActions'
 import { SetAccounts } from '../store/actions/AccountActions'
-
+import '../styles/Search.css'
 
 
 const SearchBy = (props) => {

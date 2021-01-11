@@ -1,4 +1,19 @@
-.balance-sheet-container {
+.balance-sheet-container{
+    display:flex;
+    flex-direction: column;
+}
+.balance-values {
+    height: .5vh;
+    width: 15vh;
+}
+.table{
+    display:flex;
+}
+.denominations{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+}
+.count {
+    display: flex;
+    flex-direction: column;
 }

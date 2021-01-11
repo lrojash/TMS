@@ -1,36 +1,49 @@
-import React, { Component } from 'react';
-import Modal from 'react-awesome-modal';
-import BalanceSheet from './BalanceSheet'
+import React from 'react';
+import Modal from 'react-modal';
+import BalanceSheet from './BalanceSheet';
 
-export default class PopUp extends Component {
-    constructor() {
-        super();
-        this.state = {
-            visible: false,
-        }
+const customStyles = {
+    content: {
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)',
+        height: '90%',
+        width: '20%'
+    }
+};
+
+
+
+function PopUp(props) {
+    var subtitle;
+    const [modalIsOpen, setIsOpen] = React.useState(false);
+    function openModal() {
+        setIsOpen(true);
     }
 
-    openModal() {
-        this.setState({
-            visible: true,
-        });
+
+    function closeModal() {
+        setIsOpen(false);
     }
 
-    closeModal() {
-        this.setState({
-            visible: false
-        });
-    }
+    return (
+        <div>
+            <button onClick={openModal}>Open Modal</button>
+            <Modal
+                isOpen={modalIsOpen}
+                onRequestClose={closeModal}
+                style={customStyles}
+                contentLabel="Example Modal"
+            >
+                <BalanceSheet {...props} />
+            </Modal>
+        </div>
+    );
+}
 
-    render() {
+// ReactDOM.render(<App />, appElement);
 
-        return (
-            <section>
-                <button className="edit-bt" onClick={() => this.openModal()}>Pepare Drawer</button>
-                <Modal visible={this.state.visible} width="400" height="300" effect="fadeInUp" onClickAway={() => this.closeModal()}>
-                    <BalanceSheet {...this.props} />
-                </Modal>
-            </section>
-        );
-    }
-}   
+export default PopUp

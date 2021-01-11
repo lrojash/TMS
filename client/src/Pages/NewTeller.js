@@ -11,6 +11,7 @@ import {
     setNewUserId,
     setNewUserPassword
 } from '../store/actions/TellerActions'
+import '../styles/NewTeller.css'
 
 const NewTeller = (props) => {
     console.log('inside new teller', props)
@@ -48,7 +49,7 @@ const NewTeller = (props) => {
 
     return (
         <div className="newTeller-page">
-            {/* <NavBar {...props} /> */}
+            {/* <NavBar {...props}/> */}
             <form className="form-sign-in" onSubmit={handleSubmit}>
                 <TextInput
                     placeholder="USER ID"
@@ -64,15 +65,12 @@ const NewTeller = (props) => {
                     onChange={handleChange}
                 />
                 <RadioButtons {...props} onChange={handleChange} />
+                <PopUp />
                 <button className="create-button">
                     CREATE
                 </button>
             </form>
-            <PopUp />
         </div>
-        // <div>
-        //     <h1>testing</h1>
-        // </div>
     )
 }
 

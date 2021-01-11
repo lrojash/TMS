@@ -13,11 +13,14 @@ const CustomerInfo = (props) => {
             <div className="customer-nav-bar">
                 <CustomerNavBar {...props} />
             </div>
-            <div className="account-card">
-                <AccountView {...props} />
-            </div>
-            <div className="customer-card">
-                <CustomerCard {...props} />
+            <div className="customer-container">
+                <div className="customer-card">
+                    <CustomerCard {...props} />
+                </div>
+                <div className="account-card">
+                    <AccountView {...props} />
+                </div>
+
             </div>
         </div>
     )

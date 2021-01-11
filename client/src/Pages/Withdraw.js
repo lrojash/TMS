@@ -12,8 +12,11 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 
-
 import { SetAmount, SetAccountFrom, SetAccountTypeFrom } from '../store/actions/AccountActions'
+
+
+import '../styles/Action.css'
+
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -69,8 +72,8 @@ const Withdraw = (props) => {
             let account = await __GetAccount({ accountNumber, customerNumber })
             let accountType = props.setType(account)
             let accountAction = await __Update({ amount, accountNumber, action, customerNumber, accountType })
-            console.log('after await: ',accountAction)
-            if(accountAction) {
+            console.log('after await: ', accountAction)
+            if (accountAction) {
                 alert("Withdraw Successful")
                 props.history.push('/customerInfo')
             }
@@ -87,47 +90,50 @@ const Withdraw = (props) => {
     return (
         <div>
             <CustomerNavBar {...props} />
-            <h1>works</h1>
-            <Button className={classes.button} onClick={handleOpen}>
+            {/* <Button className={classes.button} onClick={handleOpen}>
                 Select Account
-            </Button>
-            <form className="withdraw-form" onSubmit={handleSubmit}>
-                <FormControl className={classes.formControl}>
-                    <InputLabel id="demo-controlled-open-select-label">Select</InputLabel>
-                    <Select
-                        labelId="demo-controlled-open-select-label"
-                        id="demo-controlled-open-select"
-                        open={open}
-                        onClose={handleClose}
-                        onOpen={handleOpen}
-                        // value={age}
+            </Button> */}
+            <div className="action-form">
+                <h3 className="action-title">Select Account</h3>
+                <form className="withdraw-form" onSubmit={handleSubmit}>
+                    <FormControl className={classes.formControl}>
+                        <InputLabel id="demo-controlled-open-select-label">Select</InputLabel>
+                        <Select
+                            labelId="demo-controlled-open-select-label"
+                            id="demo-controlled-open-select"
+                            open={open}
+                            onClose={handleClose}
+                            onOpen={handleOpen}
+                            // value={age}
+                            onChange={handleChange}
+                        >
+                            <MenuItem value="">
+                                <em>None</em>
+                            </MenuItem>
+                            {
+                                checkingAccounts.map((account, index) => (
+                                    <MenuItem key={index} value={account.checking_number}>{account.type}-{account.balance}</MenuItem>
+                                ))
+                            }
+                            {
+                                savingAccounts.map((account, index) => (
+                                    <MenuItem key={index} value={account.saving_number}>{account.type}-{account.balance}</MenuItem>
+                                ))
+                            }
+                        </Select>
+                    </FormControl>
+                    <TextInput
+                        placeholder="AMOUNT"
+                        name="amount"
+                        type="amount"
                         onChange={handleChange}
-                    >
-                        <MenuItem value="">
-                            <em>None</em>
-                        </MenuItem>
-                        {
-                            checkingAccounts.map((account, index) => (
-                                <MenuItem key={index} value={account.checking_number}>{account.type}-{account.balance}</MenuItem>
-                            ))
-                        }
-                        {
-                            savingAccounts.map((account, index) => (
-                                <MenuItem key={index} value={account.saving_number}>{account.type}-{account.balance}</MenuItem>
-                            ))
-                        }
-                    </Select>
-                </FormControl>
-                <TextInput
-                    placeholder="AMOUNT"
-                    name="amount"
-                    type="amount"
-                    onChange={handleChange}
-                />
-                <button className="withdraw-submit">
-                    CONFIRM
+                    />
+                    <button className="withdraw-submit">
+                        CONFIRM
                  </button>
-            </form>
+                </form>
+
+            </div>
         </div>
     )
 }

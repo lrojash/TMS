@@ -1,0 +1,13 @@
+.action-form {
+    display: grid;
+    height: 60vh;
+    justify-content: center;
+}
+.action-title{
+    text-align: center;
+}
+.withdraw-form {
+    display:flex;
+    flex-direction: column;
+    width: 100%;
+}

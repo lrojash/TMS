@@ -1,0 +1,10 @@
+.newTeller-page{
+    display: grid;
+    width: auto;
+    height: 100vh;
+    justify-content: center;
+}
+.form-sign-in {
+    justify-self: center;
+    align-self: center;
+}

@@ -26,6 +26,7 @@ const SingInpage = (props) => {
         try {
             const login = await __LoginTeller({ userId, password })
             props.setUser(login)
+            // props.setAuth(true)
             props.history.push('/main')
         } catch (error) {
             throw error
