@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import TextInput from '../components/TextInput'
 import '../styles/BalanceSheet.css'
 import { setTellerDrawer } from '../store/actions/TellerActions'
+import { __BalanceTeller } from '../services/TellerServices'
 
 const Drawer = (props) => {
     const [penny, setPenny] = useState(0)
@@ -21,21 +22,36 @@ const Drawer = (props) => {
 
     useEffect(() => {
         setTotal((parseFloat(penny) + parseFloat(nickel) + parseFloat(dime) + parseFloat(quarter) + parseFloat(halfDollar) + parseFloat(ones) + parseFloat(fives) + parseFloat(tens) + parseFloat(twenties) + parseFloat(fifties) + parseFloat(hundreds)).toFixed(2))
-    }, )
+    })
 
     const handleChange = (e, setFunction) => {
         e.preventDefault()
         setFunction(parseFloat(e.target.name) * parseFloat(e.target.value))
     }
 
-    const handleClick = (e) => {
+    const handleClick = async (e) => {
         props.createDrawer(total)
-        
+        console.log(props.tellerSate.userId)
+        let userId = props.tellerSate.userId
+        let drawer = props.tellerSate.balance
+        try {
+            let balanced = await __BalanceTeller({ userId, drawer })
+            if(!balanced) {
+                alert('Drawer Balanced')
+                props.history.push('/main')
+            }
+            else {
+                alert('Drawer Not Balanced')
+                props.history.push('/main')
+            }
+        } catch (error) {
+            throw error
+        }
     }
 
     return (
         <div className="balance-sheet-container">
-            {console.log('inside return', hundreds)}
+            
             <h3 className="balance-title">Drawer</h3>
             <div className="table">
                 <div className="denominations">

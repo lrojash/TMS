@@ -52,6 +52,7 @@ const CreateTeller = async(req, res) => {
 }
 const BalanceTeller = async(req,res) => {
     let drawer = parseFloat(req.body.drawer).toFixed(2)
+    console.log(drawer)
     try {
         const teller = await Tellers.findOne({
             where: {
@@ -68,6 +69,7 @@ const BalanceTeller = async(req,res) => {
                 res.send(false)
             }
         }
+        res.send('not reaching')
     } catch(error) {
         throw error 
     }

@@ -11,7 +11,6 @@ export const __LoginTeller = async (userData) => {
 }
 
 export const __CreateTeller = async (userData) => {
-   console.log('inside services: ', userData)
     try{
         const res = await ApiClient.post('/teller/create', userData)
         return res.data
@@ -20,3 +19,11 @@ export const __CreateTeller = async (userData) => {
     }
 }
 
+export const __BalanceTeller = async (userData) => {
+    try {
+        const res = await ApiClient.post('/teller/balance', userData)
+        return res.data
+    } catch(error) {
+        throw error
+    }
+}
