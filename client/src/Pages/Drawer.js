@@ -31,7 +31,6 @@ const Drawer = (props) => {
 
     const handleClick = async (e) => {
         props.createDrawer(total)
-        console.log(props.tellerSate.userId)
         let userId = props.tellerSate.userId
         let drawer = props.tellerSate.balance
         try {

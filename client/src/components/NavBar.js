@@ -5,7 +5,7 @@ import '../styles/Nav.css'
 
 
 const NavBar = (props) => {
-    console.log('inside nav bar: ', props.tellerState.currentUser[0].admin)
+    
     let admin = props.tellerState.currentUser[0].admin
 
 
