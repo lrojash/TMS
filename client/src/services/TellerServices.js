@@ -11,7 +11,7 @@ export const __LoginTeller = async (userData) => {
 }
 
 export const __CreateTeller = async (userData) => {
-   
+   console.log('inside services: ', userData)
     try{
         const res = await ApiClient.post('/teller/create', userData)
         return res.data

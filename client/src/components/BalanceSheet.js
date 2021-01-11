@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react'
+import {connect} from 'react-redux'
 import TextInput from './TextInput'
 import '../styles/BalanceSheet.css'
+import { setTellerDrawer } from '../store/actions/TellerActions'
 
-const BalanceSheet = () => {
+const BalanceSheet = (props) => {
     const [penny, setPenny] = useState(0)
     const [nickel, setNickel] = useState(0)
     const [dime, setDime] = useState(0)
@@ -15,6 +17,7 @@ const BalanceSheet = () => {
     const [fifties, setFifties] = useState(0)
     const [hundreds, setHundreds] = useState(0)
     const [total, setTotal] = useState(0)
+
 
     // const getTotal = () => {
     //     // return (parseFloat(penny) + parseFloat(nickel) + parseFloat(dime) + parseFloat(quarter) + parseFloat(halfDollar) + parseFloat(ones) + parseFloat(fives) + parseFloat(tens) + parseFloat(twenties) + parseFloat(fifties) + parseFloat(hundreds))
@@ -33,6 +36,12 @@ const BalanceSheet = () => {
         console.log('after setting it: ', hundreds)
         // getTotal()
     }
+
+    const handleClick = (e) => {
+        console.log('worked', props)
+        props.createDrawer(total)
+    }
+
     return (
         <div className="balance-sheet-container">
             {console.log('inside return', hundreds)}
@@ -68,11 +77,24 @@ const BalanceSheet = () => {
             <div className="total">
                 <h3>total: ${total}</h3>
             </div>
-            <button className="submit-balance">
+            <button className="submit-balance" onClick={handleClick}>
                 SUBMIT
             </button>
         </div>
     )
 }
 
-export default BalanceSheet
+const mapStateToProps = (state) => {
+    return {
+        tellerSate: state.tellerState
+    }
+}
+
+const mapActionsToProps = (dispatch) => {
+    return {
+        createDrawer: (amount) => dispatch(setTellerDrawer(amount))
+    }
+}
+
+export default connect(mapStateToProps, mapActionsToProps)(BalanceSheet)
+

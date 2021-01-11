@@ -26,6 +26,8 @@ const LoginTeller = async (req, res) => {
 }
 
 const CreateTeller = async(req, res) => {
+    console.log(req.body)
+    let drawer = parseFloat(req.body.drawer)
     try{
         const userExists = await Tellers.findOne({
             where: {
@@ -38,7 +40,8 @@ const CreateTeller = async(req, res) => {
                 message: 'account already exists',
             })
         }
-
+        let body = {drawer, ...req.body}
+        console.log('body: ', body)
         let teller = await Tellers.create(req.body)
 
         res.send(teller)

@@ -11,7 +11,7 @@ const customStyles = {
         marginRight: '-50%',
         transform: 'translate(-50%, -50%)',
         height: '90%',
-        width: '20%'
+        width: '30%'
     }
 };
 
@@ -44,6 +44,5 @@ function PopUp(props) {
     );
 }
 
-// ReactDOM.render(<App />, appElement);
 
 export default PopUp

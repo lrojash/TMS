@@ -1,4 +1,4 @@
-import { SET_USER_ID, SET_USER_PASSWORD, SET_CURRENT_USER, SET_NEW_USER_ID, SET_NEW_USER_PASSWORD } from '../types'
+import { SET_USER_ID, SET_USER_PASSWORD, SET_CURRENT_USER, SET_NEW_USER_ID, SET_NEW_USER_PASSWORD, SET_TELLER_DRAWER } from '../types'
 
 
 export const setUserId = (userId) => ({
@@ -24,4 +24,9 @@ export const setNewUserPassword = (newUserPassword) => ({
 export const setCurrentUser = (user) => ({
     type: SET_CURRENT_USER,
     payload: user
+})
+
+export const setTellerDrawer = (amount) => ({
+    type: SET_TELLER_DRAWER,
+    payload: amount
 })

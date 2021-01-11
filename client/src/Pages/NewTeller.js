@@ -9,7 +9,8 @@ import { __CreateTeller } from '../services/TellerServices'
 
 import {
     setNewUserId,
-    setNewUserPassword
+    setNewUserPassword,
+    setTellerDrawer
 } from '../store/actions/TellerActions'
 import '../styles/NewTeller.css'
 
@@ -35,7 +36,8 @@ const NewTeller = (props) => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            const response = await __CreateTeller({ userId, password, admin })
+            const drawer = parseInt(props.tellerSate.balance).toFixed(2)
+            const response = await __CreateTeller({ userId, password, admin, drawer})
             if (response.message) {
                 alert('User Id already exists. \nPlease Try again')
             }
@@ -61,11 +63,11 @@ const NewTeller = (props) => {
                 <TextInput
                     placeholder="PASSWORD"
                     name="password"
-                    type="pasword"
+                    type="password"
                     onChange={handleChange}
                 />
                 <RadioButtons {...props} onChange={handleChange} />
-                <PopUp />
+                <PopUp {...props} />
                 <button className="create-button">
                     CREATE
                 </button>
@@ -84,8 +86,8 @@ const mapStateToProps = (state) => {
 const mapActionsToProps = (dispatch) => {
     return {
         createUser: (userId) => dispatch(setNewUserId(userId)),
-        createPassword: (password) => dispatch(setNewUserPassword(password))
-
+        createPassword: (password) => dispatch(setNewUserPassword(password)),
+        createDrawer: (amount) => dispatch(setTellerDrawer(amount))
     }
 }
 

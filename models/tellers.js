@@ -18,7 +18,8 @@ module.exports = (sequelize, DataTypes) => {
     password_digest: DataTypes.STRING,
     question_one: DataTypes.STRING,
     question_two: DataTypes.STRING,
-    admin: DataTypes.BOOLEAN
+    admin: DataTypes.BOOLEAN,
+    drawer: DataTypes.DECIMAL(10,2)
   }, {
     sequelize,
     modelName: 'Tellers',
