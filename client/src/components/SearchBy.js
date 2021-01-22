@@ -82,8 +82,9 @@ const SearchBy = (props) => {
 
     return (
         <div className="SearchBy-page">
-            <h5 className="search-title">Search By:</h5>
+            <h1 className="search-title">Search By:</h1>
             <form className="search-form" onSubmit={handleSubmit}>
+                <h3 classname="acct-search">Account Number</h3>
                 <TextInput
                     className="form-1"
                     placeholder="ACCOUNT NUMBER"
@@ -95,12 +96,13 @@ const SearchBy = (props) => {
                     Search
                 </button>
             </form>
+            <div className="separator"></div>
             <form className="search-form-two" onSubmit={handleSubmit2}>
+                <h3 className="acct-search">Customer Information</h3>
                 <TextInput
                     placeholder="FIRST NAME"
                     name="firstName"
                     type="firstName"
-
                     onChange={handleChange}
                 />
                 <TextInput
