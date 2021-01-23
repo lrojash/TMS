@@ -97,7 +97,7 @@ const SearchBy = (props) => {
                 </button>
             </form>
             <div className="separator"></div>
-            <form className="search-form-two" onSubmit={handleSubmit2}>
+            <form className="search-form" onSubmit={handleSubmit2}>
                 <h3 className="acct-search">Customer Information</h3>
                 <TextInput
                     placeholder="FIRST NAME"

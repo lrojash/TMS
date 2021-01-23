@@ -7,16 +7,17 @@ import '../styles/CustomerInfo.css'
 
 const CustomerInfo = (props) => {
 
-    console.log('inside customer info', props)
     return (
         <div className="customer-information">
             <div className="customer-nav-bar">
                 <CustomerNavBar {...props} />
             </div>
             <div className="customer-container">
+                <h1 className="account-title">Account Information:</h1>
                 <div className="customer-card">
                     <CustomerCard {...props} />
                 </div>
+                <div className="separator"></div>
                 <div className="account-card">
                     <AccountView {...props} />
                 </div>

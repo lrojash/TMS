@@ -2,9 +2,15 @@
     background-color:grey;
     display: flex;
     justify-content: flex-end;
-    border: 2px solid black;
     height: 4.75em;
 }
+
 .link{
     border: 2px solid black;
+}
+.customer-nav-bar {
+    background-color:grey;
+    display: flex;
+    justify-content: flex-end;
+    height: 4.75em;
 }

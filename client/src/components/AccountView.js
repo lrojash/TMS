@@ -7,6 +7,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import '../styles/CustomerInfo.css'
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -36,16 +37,11 @@ const useStyles = makeStyles({
 
 export default function AccountView(props) {
 
-    // let accounts = [props.accountState.accounts[0].checkingAccounts[0], props.accountState.accounts[0].savingsAccounts[0]]
-    console.log('inside account view: ', props.accountState.accounts[0][0].Checkings)
+    
     let checkingAccounts = props.accountState.accounts[0][0].Checkings
     let savingAccounts = props.accountState.accounts[0][0].Savings
 
     let accounts = [...checkingAccounts, ...savingAccounts]
-
-    console.log('after setting checking: ', checkingAccounts)
-    console.log('after setting savings: ', savingAccounts)
-    console.log('after comibing: ', accounts)
     const classes = useStyles();
 
     return (

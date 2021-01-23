@@ -1,14 +1,47 @@
 .customer-container{
-    display:flex;
-    flex-direction: row;
-    margin-top: 5em;
+    display: grid;
+    grid-template-columns: 50vh 25vh auto;
+    grid-template-rows: auto 40vh ;
+    margin-top: 7em;
 }
-.customer-card {
-    width: 40%;
+.customer-card{
+    align-self: center;
+    justify-self: center;
 }
-.account-card {
-    width: 50%;
+.account-title{
+    grid-column-start: 1;
+    grid-column-end:4;
 }
-.customer-nav-bar {
-    background-color: grey;
+.separator{
+    background-color: black;
+    width: .25em;
+    justify-self: center;
+    
+}
+.account-card{
+    justify-self: center;
+    align-self: center;
+}
+.customer-info {
+    display: grid;
+    grid-template-columns: auto auto;
+    background-color: rgb(255, 255, 255);
+    border-radius: 5%;
+    margin-left: 1em;
+    position: relative;
+    box-shadow: 10px 10px #414040;
+    min-width: 10vh;
+    min-height: 20vh;
+}
+.headers{
+    margin-left: 1em;
+}
+.customer-details{
+    justify-self: center;
+    margin-left: 1em;
+    margin-right: 4em;
+}
+.table-info{
+    box-shadow: 10px 10px #414040;
+    /* border-radius: 5%; */
 }

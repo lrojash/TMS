@@ -7,7 +7,6 @@
 .search-title{
     grid-column-start: 1;
     grid-column-end: 4;
-    /* font-size: 2em; */
 }
 .separator{
     background-color: black;
@@ -20,13 +19,6 @@
     justify-self: center;
     align-self: center;
     width:25em;
-}
-.search-form-two{
-    display: flex;
-    flex-direction: column;
-    justify-self: center;
-    align-self: center;
-    width: 25em;
 }
 .search-button{
     margin-top: 2em;
