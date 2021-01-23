@@ -1,4 +1,12 @@
-import { ADD_CUSTOMER, ADD_ACCOUNT, SEARCH_TERM, ADD_FIRST_NAME, ADD_LAST_NAME, ADD_DOB } from '../types'
+import {
+    ADD_CUSTOMER,
+    ADD_ACCOUNT,
+    SEARCH_TERM,
+    ADD_FIRST_NAME,
+    ADD_LAST_NAME,
+    ADD_DOB,
+    CLEAR_CUSTOMER
+} from '../types'
 
 export const AddCustomer = (customer) => ({
     type: ADD_CUSTOMER,
@@ -28,4 +36,7 @@ export const AddLastName = (name) => ({
 export const AddDob = (dob) => ({
     type: ADD_DOB,
     payload: dob
+})
+export const ClearCustomer = () => ({
+    type: CLEAR_CUSTOMER
 })

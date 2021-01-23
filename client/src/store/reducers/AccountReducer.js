@@ -1,4 +1,12 @@
-import { SET_ACCOUNTS, SET_AMOUNT, SET_ACCOUNT_FROM, SET_ACCOUNT_TO, SET_ACCOUNT_TYPE_FROM, SET_ACCOUNT_TYPE_TO } from '../types'
+import {
+    SET_ACCOUNTS,
+    SET_AMOUNT,
+    SET_ACCOUNT_FROM,
+    SET_ACCOUNT_TO,
+    SET_ACCOUNT_TYPE_FROM,
+    SET_ACCOUNT_TYPE_TO,
+    CLEAR_ACCOUNTS
+} from '../types'
 
 const iState = {
     accounts: [],
@@ -26,6 +34,8 @@ const AccountReducer = (state = iState, action) => {
             return { ...state, accountTypeFrom: action.payload }
         case SET_ACCOUNT_TYPE_TO:
             return { ...state, accountTypeTo: action.payload }
+        case CLEAR_ACCOUNTS:
+            return { ...state, accounts: [] }
         default:
             return { ...state }
     }

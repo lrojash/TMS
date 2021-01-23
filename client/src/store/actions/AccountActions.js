@@ -1,4 +1,12 @@
-import { SET_ACCOUNTS, SET_AMOUNT, SET_ACCOUNT_FROM, SET_ACCOUNT_TO, SET_ACCOUNT_TYPE_FROM, SET_ACCOUNT_TYPE_TO } from '../types'
+import {
+    SET_ACCOUNTS,
+    SET_AMOUNT,
+    SET_ACCOUNT_FROM,
+    SET_ACCOUNT_TO,
+    SET_ACCOUNT_TYPE_FROM,
+    SET_ACCOUNT_TYPE_TO,
+    CLEAR_ACCOUNTS
+} from '../types'
 
 export const SetAccounts = (accts) => ({
     type: SET_ACCOUNTS,
@@ -28,4 +36,7 @@ export const SetAccountTypeFrom = (type) => ({
 export const SetAccountTypeTo = (type) => ({
     type: SET_ACCOUNT_TYPE_TO,
     payload: type
+})
+export const ClearAccounts = () => ({
+    type: CLEAR_ACCOUNTS
 })
