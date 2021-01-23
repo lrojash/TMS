@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import TextInput from '../components/TextInput'
 import '../styles/BalanceSheet.css'
-import { setTellerDrawer } from '../store/actions/TellerActions'
+import { SetTellerDrawer } from '../store/actions/TellerActions'
 import { __BalanceTeller } from '../services/TellerServices'
 
 const Drawer = (props) => {
@@ -98,7 +98,7 @@ const mapStateToProps = (state) => {
 
 const mapActionsToProps = (dispatch) => {
     return {
-        createDrawer: (amount) => dispatch(setTellerDrawer(amount))
+        createDrawer: (amount) => dispatch(SetTellerDrawer(amount))
     }
 }
 

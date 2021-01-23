@@ -1,4 +1,12 @@
-import { SET_USER_ID, SET_USER_PASSWORD, SET_CURRENT_USER, SET_NEW_USER_ID, SET_NEW_USER_PASSWORD, SET_TELLER_DRAWER } from '../types'
+import {
+    SET_USER_ID,
+    SET_USER_PASSWORD,
+    SET_CURRENT_USER,
+    SET_NEW_USER_ID,
+    SET_NEW_USER_PASSWORD,
+    SET_TELLER_DRAWER,
+    CLEAR_USER
+} from '../types'
 const iState = {
     userId: '',
     password: '',
@@ -21,7 +29,9 @@ const TellerReducer = (state = iState, action) => {
         case SET_CURRENT_USER:
             return { ...state, currentUser: state.currentUser.concat([action.payload]) }
         case SET_TELLER_DRAWER:
-            return {...state, balance: action.payload}
+            return { ...state, balance: action.payload }
+        case CLEAR_USER:
+            return { ...state, userId: '', password: '', balance: '', currentUser: [] }
         default:
             return { ...state }
     }

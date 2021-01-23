@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
+import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import Tab from '@material-ui/core/Tab';
 import '../styles/Nav.css'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-
+import { ClearUser } from '../store/actions/TellerActions'
 
 const NavBar = (props) => {
 
@@ -24,6 +25,10 @@ const NavBar = (props) => {
         },
     });
 
+    const handleClick = ()=> {
+        props.clearUser()
+    }
+
     return admin ? (
         <div className="nav-bar">
             <ThemeProvider theme={theme}>
@@ -38,14 +43,26 @@ const NavBar = (props) => {
                 <div className="nav-bar">
                     <Tab label="Close Day" className="link" />
                     <Tab to="/drawer" component={Link} label="Drawer" className="link" />
-                    <Tab to="/" component={Link} label="Sign Out" className="link" />
+                    <Tab to="/" component={Link} label="Sign Out" className="link" onClick={handleClick}/>
                 </div>
 
             </ThemeProvider>
         )
 }
 
-export default NavBar
+const mapStateToProps = (state) => {
+    return {
+        tellerState: state.tellerState
+    }
+}
+
+const mapActionsToProps = (dispatch) => {
+    return {
+        clearUser: () => dispatch(ClearUser())
+    }
+}
+
+export default connect(mapStateToProps, mapActionsToProps)(NavBar)
 
 
 

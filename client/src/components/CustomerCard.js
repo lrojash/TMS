@@ -22,7 +22,7 @@ export default function CustomerCard(props) {
     const classes = useStyles();
 
     let customerData = props.customerState.customer[0]
-    console.log('inside customer card: ', props)
+  
 
     return (
         // <div className={classes.root}>

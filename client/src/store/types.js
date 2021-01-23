@@ -14,6 +14,7 @@ export const SET_NEW_USER_ID = 'SET_NEW_USER_ID'
 export const SET_NEW_USER_PASSWORD = 'SET_NEW_USER_PASSWORD'
 export const SET_CURRENT_USER = 'SET_CURRENT_USER'
 export const SET_TELLER_DRAWER = 'SET_TELLER_DRAWER'
+export const CLEAR_USER = 'CLEAR_USER'
 
 // Account Types
 

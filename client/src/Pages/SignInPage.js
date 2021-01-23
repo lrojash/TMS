@@ -3,9 +3,9 @@ import { connect } from 'react-redux'
 import TextInput from '../components/TextInput'
 import { __LoginTeller } from '../services/TellerServices'
 import {
-    setUserId,
-    setUserPassword,
-    setCurrentUser,
+    SetUserId,
+    SetUserPassword,
+    SetCurrentUser,
 } from '../store/actions/TellerActions'
 import '../styles/Main.css'
 
@@ -66,9 +66,9 @@ const mapStateToProps = (state) => {
 
 const mapActionsToProps = (dispatch) => {
     return {
-        setTellerId: (userId) => dispatch(setUserId(userId)),
-        setTellerPassword: (password) => dispatch(setUserPassword(password)),
-        setUser: (user) => dispatch(setCurrentUser(user))
+        setTellerId: (userId) => dispatch(SetUserId(userId)),
+        setTellerPassword: (password) => dispatch(SetUserPassword(password)),
+        setUser: (user) => dispatch(SetCurrentUser(user))
     }
 }
 

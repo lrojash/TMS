@@ -8,9 +8,9 @@ import PopUp from '../components/PopUp'
 import { __CreateTeller } from '../services/TellerServices'
 
 import {
-    setNewUserId,
-    setNewUserPassword,
-    setTellerDrawer
+    SetNewUserId,
+    SetNewUserPassword,
+    SetTellerDrawer
 } from '../store/actions/TellerActions'
 import '../styles/NewTeller.css'
 
@@ -85,9 +85,9 @@ const mapStateToProps = (state) => {
 
 const mapActionsToProps = (dispatch) => {
     return {
-        createUser: (userId) => dispatch(setNewUserId(userId)),
-        createPassword: (password) => dispatch(setNewUserPassword(password)),
-        createDrawer: (amount) => dispatch(setTellerDrawer(amount))
+        createUser: (userId) => dispatch(SetNewUserId(userId)),
+        createPassword: (password) => dispatch(SetNewUserPassword(password)),
+        createDrawer: (amount) => dispatch(SetTellerDrawer(amount))
     }
 }
 

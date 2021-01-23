@@ -84,7 +84,7 @@ const SearchBy = (props) => {
         <div className="SearchBy-page">
             <h1 className="search-title">Search By:</h1>
             <form className="search-form" onSubmit={handleSubmit}>
-                <h3 classname="acct-search">Account Number</h3>
+                <h3 className="acct-search">Account Number</h3>
                 <TextInput
                     className="form-1"
                     placeholder="ACCOUNT NUMBER"
