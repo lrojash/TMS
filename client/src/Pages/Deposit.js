@@ -13,7 +13,7 @@ import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 import '../styles/Action.css'
 
-import { SetAmount, SetAccountFrom, SetAccountTypeFrom } from '../store/actions/AccountActions'
+import { SetAmount, SetAccountFrom, SetAccountTypeFrom, UpdateBalance } from '../store/actions/AccountActions'
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -26,12 +26,12 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Withdraw = (props) => {
+const Deposit = (props) => {
+    console.log('inside deposit: ', props)
 
-    let checkingAccounts = props.accountState.accounts[0][0].Checkings
-    let savingAccounts = props.accountState.accounts[0][0].Savings
+    let checkingAccounts = props.accountState.accounts[0].checking
+    let savingAccounts = props.accountState.accounts[0].saving
     let accounts = [...checkingAccounts, ...savingAccounts]
-
 
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
@@ -69,9 +69,9 @@ const Withdraw = (props) => {
             let account = await __GetAccount({ accountNumber, customerNumber })
             let accountType = props.setType(account)
             let accountAction = await __Update({ amount, accountNumber, action, customerNumber, accountType })
-            console.log('after await: ', accountAction)
             if (accountAction) {
                 alert("Deposit Successful")
+                props.updateAccount(accountNumber, accountAction[1][0].balance, accountType.payload)
                 props.history.push('/customerInfo')
             }
         } catch (error) {
@@ -79,10 +79,6 @@ const Withdraw = (props) => {
         }
 
     }
-
-
-
-
 
     return (
         <div>
@@ -143,8 +139,9 @@ const mapActionsToProps = (dispatch) => {
     return {
         setAmount: (amount) => dispatch(SetAmount(amount)),
         setAcct: (acctNum) => dispatch(SetAccountFrom(acctNum)),
-        setType: (type) => dispatch(SetAccountTypeFrom(type))
+        setType: (type) => dispatch(SetAccountTypeFrom(type)),
+        updateAccount: (account, balance, type) => dispatch(UpdateBalance(account,balance,type))
     }
 }
 
-export default connect(mapStateToProps, mapActionsToProps)(Withdraw)
+export default connect(mapStateToProps, mapActionsToProps)(Deposit)
