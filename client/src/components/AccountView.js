@@ -36,12 +36,7 @@ const useStyles = makeStyles({
 });
 
 export default function AccountView(props) {
-
-    
-    let checkingAccounts = props.accountState.accounts[0][0].Checkings
-    let savingAccounts = props.accountState.accounts[0][0].Savings
-
-    let accounts = [...checkingAccounts, ...savingAccounts]
+    let accounts = [...props.accountState.accounts[0].checking, ...props.accountState.accounts[0].saving]
     const classes = useStyles();
 
     return (

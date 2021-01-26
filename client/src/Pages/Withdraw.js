@@ -12,7 +12,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 
-import { SetAmount, SetAccountFrom, SetAccountTypeFrom } from '../store/actions/AccountActions'
+import { SetAmount, SetAccountFrom, SetAccountTypeFrom, UpdateBalance } from '../store/actions/AccountActions'
 
 
 import '../styles/Action.css'
@@ -31,8 +31,9 @@ const useStyles = makeStyles((theme) => ({
 
 const Withdraw = (props) => {
 
-    let checkingAccounts = props.accountState.accounts[0][0].Checkings
-    let savingAccounts = props.accountState.accounts[0][0].Savings
+    
+    let checkingAccounts = props.accountState.accounts[0].checking
+    let savingAccounts = props.accountState.accounts[0].saving
     let accounts = [...checkingAccounts, ...savingAccounts]
 
 
@@ -42,7 +43,6 @@ const Withdraw = (props) => {
 
     const handleChange = (e) => {
         e.preventDefault()
-        console.log('inside handle change: ', e.target.value)
         if (e.target.name === 'amount') {
             props.setAmount(e.target.value)
         }
@@ -62,7 +62,6 @@ const Withdraw = (props) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log('inside the submit: ', props.accountState)
         let amount = props.accountState.amount
         let accountNumber = props.accountState.accountFrom
         let action = "withdraw"
@@ -72,9 +71,9 @@ const Withdraw = (props) => {
             let account = await __GetAccount({ accountNumber, customerNumber })
             let accountType = props.setType(account)
             let accountAction = await __Update({ amount, accountNumber, action, customerNumber, accountType })
-            console.log('after await: ', accountAction)
             if (accountAction) {
                 alert("Withdraw Successful")
+                props.updateAccount(accountNumber, accountAction[1][0].balance, accountType.payload)
                 props.history.push('/customerInfo')
             }
         } catch (error) {
@@ -149,7 +148,8 @@ const mapActionsToProps = (dispatch) => {
     return {
         setAmount: (amount) => dispatch(SetAmount(amount)),
         setAcct: (acctNum) => dispatch(SetAccountFrom(acctNum)),
-        setType: (type) => dispatch(SetAccountTypeFrom(type))
+        setType: (type) => dispatch(SetAccountTypeFrom(type)),
+        updateAccount: (account, balance, type) => dispatch(UpdateBalance(account, balance, type))
     }
 }
 

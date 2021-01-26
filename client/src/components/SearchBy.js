@@ -5,7 +5,6 @@ import { __GetCustomer, __GetCustomerAccounts } from '../services/CustomerServic
 
 import {
     AddCustomer,
-    AddAccount,
     SearchTerm,
     AddFirstName,
     AddLastName,
@@ -45,7 +44,7 @@ const SearchBy = (props) => {
             if (response1) {
                 const response2 = await __GetCustomerAccounts({ customerId })
                 props.addCustomer(response1)
-                props.setAccounts(response2)
+                props.setAccounts(response2[0]["Checkings"], response2[0]["Savings"])
                 props.history.push('/customerInfo')
             }
             else {
@@ -59,7 +58,6 @@ const SearchBy = (props) => {
     const handleSubmit2 = async (e) => {
         e.preventDefault()
         let customerInfo = props.customerState
-        console.log('inside submit 2: ', customerInfo)
         try {
             let firstName = props.customerState.firstName
             let lastName = props.customerState.lastName
@@ -69,7 +67,7 @@ const SearchBy = (props) => {
             if (response1) {
                 const response2 = await __GetCustomerAccounts({ customerId: response1.id })
                 props.addCustomer(response1)
-                props.setAccounts(response2)
+                // props.setAccounts(response2)
                 props.history.push('customerInfo')
             }
             else {
@@ -136,7 +134,7 @@ const mapActionsToProps = (dispatch) => {
     return {
         search: (term) => dispatch(SearchTerm(term)),
         addCustomer: (customer) => dispatch(AddCustomer(customer)),
-        setAccounts: (accounts) => dispatch(SetAccounts(accounts)),
+        setAccounts: (checking, saving) => dispatch(SetAccounts(checking, saving)),
         setFirstName: (name) => dispatch(AddFirstName(name)),
         setLastName: (name) => dispatch(AddLastName(name)),
         setDob: (dob) => dispatch(AddDob(dob)),

@@ -5,8 +5,13 @@ import {
     SET_ACCOUNT_TO,
     SET_ACCOUNT_TYPE_FROM,
     SET_ACCOUNT_TYPE_TO,
-    CLEAR_ACCOUNTS
+    CLEAR_ACCOUNTS,
+    UPDATE_ACCOUNT_BALANCE
 } from '../types'
+
+const modifyType = (type) => {
+    return type.toLowerCase().substring(0, type.length - 1)
+}
 
 const iState = {
     accounts: [],
@@ -16,8 +21,9 @@ const iState = {
     accountTo: '',
 
     accountTypeFrom: '',
-    accountTypeTo: ''
+    accountTypeTo: '',
 
+    updatedAccount: ''
 }
 
 const AccountReducer = (state = iState, action) => {
@@ -36,6 +42,14 @@ const AccountReducer = (state = iState, action) => {
             return { ...state, accountTypeTo: action.payload }
         case CLEAR_ACCOUNTS:
             return { ...state, accounts: [] }
+        case UPDATE_ACCOUNT_BALANCE:
+            let type = modifyType(action.payload.type)
+            let updatedAccount = state.accounts[0][type].map((account, i) => {
+                if (account.checking_number === action.payload.account || account.saving_number === action.payload.account) {
+                    account.balance = action.payload.balance
+                }
+            })
+            return { ...state, accounts: [...state.accounts] }
         default:
             return { ...state }
     }

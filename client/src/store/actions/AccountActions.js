@@ -5,12 +5,16 @@ import {
     SET_ACCOUNT_TO,
     SET_ACCOUNT_TYPE_FROM,
     SET_ACCOUNT_TYPE_TO,
-    CLEAR_ACCOUNTS
+    CLEAR_ACCOUNTS,
+    UPDATE_ACCOUNT_BALANCE
 } from '../types'
 
-export const SetAccounts = (accts) => ({
+export const SetAccounts = (checking, saving) => ({
     type: SET_ACCOUNTS,
-    payload: accts
+    payload: {
+        checking,
+        saving
+    }
 })
 
 export const SetAmount = (amount) => ({
@@ -39,4 +43,12 @@ export const SetAccountTypeTo = (type) => ({
 })
 export const ClearAccounts = () => ({
     type: CLEAR_ACCOUNTS
+})
+export const UpdateBalance = (account, balance, type) => ({
+    type: UPDATE_ACCOUNT_BALANCE,
+    payload: {
+        account,
+        balance,
+        type
+    }
 })

@@ -25,23 +25,6 @@ export default function CustomerCard(props) {
   
 
     return (
-        // <div className={classes.root}>
-        //     <Grid container spacing={2} style={{ width: 350, whiteSpace: 'nowrap' }}>
-        //         <Grid item xs={12} md={6}>
-        //             <Typography variant="h2" className={classes.title}>
-        //                 {`${customerData.firstName} ${customerData.lastName}`}
-        //             </Typography>
-        //             <div className={classes.demo}>
-        //                 <List>
-        //                     <ListItemText
-        //                         primary={customerData.dateOfBirth} />
-        //                     <ListItemText
-        //                         primary="Active" />
-        //                 </List>
-        //             </div>
-        //         </Grid>
-        //     </Grid>
-        // </div>
         <div className="customer-info">
             <section className="headers">
                 <h2>Name:</h2>
